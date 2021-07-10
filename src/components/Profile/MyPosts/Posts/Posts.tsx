@@ -1,13 +1,18 @@
 import React from "react";
 import classes from './Posts.module.css';
 
-const Posts = () => {
+type PostsMassageLike = {
+    massage : string;
+    like : number;
+}
+
+const Posts = (props:PostsMassageLike) => {
     return(
             <div className={classes.item}>
                 <img src="https://cspromogame.ru//storage/upload_images/avatars/3884.jpg"/>
-                post 1
+                {props.massage}
                 <div>
-                <span>Like</span>
+                <span>Like {props.like} </span>
                 </div>
             </div>
     )
