@@ -1,8 +1,14 @@
-.nav{
+.nav {
     grid-area: n;
     background-color: #f5f518;
+    padding: 25px;
 }
 
-.item{
+.item a {
     color: white;
+    text-decoration: none;
+}
+
+.item a.activeLink {
+    color: purple;
 }
