@@ -2,8 +2,9 @@ import React from "react";
 import classes from './Posts.module.css';
 
 type PostsMassageLike = {
-    massage : string;
-    like : number;
+    massage : string
+    like : number
+    id: number
 }
 
 const Posts = (props:PostsMassageLike) => {
