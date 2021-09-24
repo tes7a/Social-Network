@@ -13,6 +13,7 @@ import {Settings} from "./components/Settings/Settings";
 
 const App = () => {
     return (
+        <div></div>
         <BrowserRouter>
             <div className='appWrapper'>
                 <Header/>
