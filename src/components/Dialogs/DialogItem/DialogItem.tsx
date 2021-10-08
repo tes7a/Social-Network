@@ -1,7 +1,7 @@
 import classes from "../Dialogs.module.css";
 import {NavLink} from "react-router-dom";
 import React from "react";
-import {TypeDialog} from "../Dialogs";
+import {TypeDialog} from '../../../index'
 
 export const DialogItem = (props : TypeDialog) => {
     let path = "/dialog/1" + props.id

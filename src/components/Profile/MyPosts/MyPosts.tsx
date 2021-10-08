@@ -1,13 +1,13 @@
 import React from "react";
 import classes from './MyPosts.module.css';
 import Posts from "./Posts/Posts";
+import {PostsType} from '../../../index'
 
-const MyPosts = () => {
+export type MyPostsType = {
+    posts: PostsType[]
+}
 
-    let posts= [
-        {id: 1, likeCount: 15, message: "Hi, how are you?"},
-        {id: 2, likeCount: 20, message: "It's my first post"}
-    ]
+const MyPosts:React.FC<MyPostsType> = ({posts}) => {
 
     const postElem = posts.map(p => <Posts massage={p.message} like={p.likeCount} id={p.id}/>)
 

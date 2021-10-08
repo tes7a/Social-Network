@@ -8,6 +8,6 @@ export type MessageType = {
 
 
 
-export const MassgesItem = (props: MessageType) => {
+export const MessagesItem = (props: MessageType) => {
     return(<div className={classes.massage}>{props.message}</div>)
 }
