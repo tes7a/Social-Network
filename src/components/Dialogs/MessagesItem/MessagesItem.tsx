@@ -6,8 +6,6 @@ export type MessageType = {
     id: number
 }
 
-
-
 export const MessagesItem = (props: MessageType) => {
     return(<div className={classes.massage}>{props.message}</div>)
 }

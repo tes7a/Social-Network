@@ -2,17 +2,17 @@ import React from "react";
 import classes from './Profile.module.css';
 import MyPosts from "./MyPosts/MyPosts";
 import {ProfileInfo} from "./MyPosts/ProfileInfo/ProfileInfo";
-import {PostsType} from "../../index";
+import {ProfilePageType} from "../../Redux/State";
 
 export type ProfileType = {
-    posts: PostsType[]
+    state: ProfilePageType
 }
 
-const Profile:React.FC<ProfileType> = ({posts}) => {
+const Profile:React.FC<ProfileType> = ({state}) => {
     return (
         <div>
             <ProfileInfo/>
-            <MyPosts posts={posts}/>
+            <MyPosts posts={state.posts}/>
         </div>
     )
 }

@@ -1,7 +1,7 @@
 import React from "react";
 import classes from './MyPosts.module.css';
 import Posts from "./Posts/Posts";
-import {PostsType} from '../../../index'
+import {PostsType} from '../../../Redux/State'
 
 export type MyPostsType = {
     posts: PostsType[]
