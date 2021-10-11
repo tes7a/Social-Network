@@ -8,13 +8,15 @@ import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
 import Profile from "./components/Profile/Profile";
-import {RootStateType} from './Redux/State'
+import {changeText, RootStateType} from './Redux/State'
 
 type AppType = {
-   state: RootStateType
+    state: RootStateType
+    addPost: (postMessage: string) => void
+    changeText: (newText: string) => void
 }
 
-const App:React.FC<AppType> = ({state}) => {
+const App: React.FC<AppType> = ({state, addPost, changeText}) => {
     return (
         <BrowserRouter>
             <div className='appWrapper'>
@@ -22,7 +24,7 @@ const App:React.FC<AppType> = ({state}) => {
                 <NavBar/>
                 <div className="app-wrapper-content">
                     <Route exact path="/dialog" render={() => <Dialogs state={state.dialogsPage}/>}/>
-                    <Route path="/profile" render={() => <Profile state={state.profilePage}/>}/>
+                    <Route path="/profile" render={() => <Profile state={state.profilePage} addPost={addPost} changeText={changeText}/>}/>
                     <Route path="/news" render={() => <News/>}/>
                     <Route path="/music" render={() => <Music/>}/>
                     <Route path="/settings" render={() => <Settings/>}/>

@@ -1,3 +1,5 @@
+import {renderTree} from "../render";
+
 export type TypeDialog = {
     name: string
     id: number
@@ -15,6 +17,7 @@ export type PostsType = {
 }
 
 export type ProfilePageType = {
+    messageForNewPost: string,
     posts: PostsType[]
 }
 
@@ -35,6 +38,7 @@ export type RootStateType = {
 
 export let state : RootStateType = {
     profilePage: {
+        messageForNewPost: '',
         posts: [
             {id: 1, likeCount: 15, message: "Hi, how are you?"},
             {id: 2, likeCount: 20, message: "It's my first post"}
@@ -59,4 +63,19 @@ export let state : RootStateType = {
         ]
     },
     sidebar: {}
+}
+
+export let addPost = (postMessage: string) => {
+    const newPost : PostsType = {
+        id: new Date().getTime(),
+        message: postMessage,
+        likeCount: 0
+    }
+    state.profilePage.posts.push(newPost)
+    renderTree(state);
+}
+
+export const changeText = (newText: string) => {
+    state.profilePage.messageForNewPost = newText
+    renderTree(state);
 }
