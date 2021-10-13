@@ -1,5 +1,3 @@
-import {renderTree} from "../render";
-
 export type TypeDialog = {
     name: string
     id: number
@@ -65,6 +63,9 @@ export let state : RootStateType = {
     sidebar: {}
 }
 
+let renderTree = (state: RootStateType) => {
+}
+
 export let addPost = (postMessage: string) => {
     const newPost : PostsType = {
         id: new Date().getTime(),
@@ -78,4 +79,8 @@ export let addPost = (postMessage: string) => {
 export const changeText = (newText: string) => {
     state.profilePage.messageForNewPost = newText
     renderTree(state);
+}
+
+export const subscribe = (observer: () => void) => {
+    renderTree = observer;
 }
