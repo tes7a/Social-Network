@@ -3,7 +3,7 @@ import {NavLink} from "react-router-dom";
 import classes from "./Dialogs.module.css";
 import {DialogItem} from "./DialogItem/DialogItem";
 import {MessagesItem} from "./MessagesItem/MessagesItem";
-import {DialogsPageType} from "../../Redux/State";
+import {DialogsPageType} from "../../Redux/store";
 
 type DialogType = {
     state: DialogsPageType
