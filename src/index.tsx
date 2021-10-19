@@ -3,16 +3,12 @@ import React from "react";
 import App from "./App";
 import {store, storeType} from './Redux/store'
 
-type propsType = {
-    store: storeType
-}
-
 const renderTree = () => {
     const state = store.gateState
 
     ReactDOM.render(
         <React.StrictMode>
-            <App state={state} addPost={store.addPost} changeText={store.changeText}/>
+            <App store={store}/>
         </React.StrictMode>,
         document.getElementById('root')
     );

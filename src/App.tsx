@@ -8,15 +8,15 @@ import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
 import Profile from "./components/Profile/Profile";
-import {RootStateType} from './Redux/store'
+import {RootStateType, store, storeType} from './Redux/store'
 
 type AppType = {
-    state: RootStateType
-    addPost: (postMessage: string) => void
-    changeText: (newText: string) => void
+    store: storeType
 }
 
-const App: React.FC<AppType> = ({state, addPost, changeText}) => {
+const App: React.FC<AppType> = ({store}) => {
+    const state = store.gateState();
+
     return (
         <BrowserRouter>
             <div className='appWrapper'>
@@ -24,7 +24,9 @@ const App: React.FC<AppType> = ({state, addPost, changeText}) => {
                 <NavBar/>
                 <div className="app-wrapper-content">
                     <Route exact path="/dialog" render={() => <Dialogs state={state.dialogsPage}/>}/>
-                    <Route path="/profile" render={() => <Profile state={state.profilePage} addPost={addPost} changeText={changeText}/>}/>
+                    <Route path="/profile" render={() => <Profile state={state.profilePage}
+                                                  addPost={store.addPost.bind(store)}
+                                                  changeText={store.changeText.bind(store)}/>}/>
                     <Route path="/news" render={() => <News/>}/>
                     <Route path="/music" render={() => <Music/>}/>
                     <Route path="/settings" render={() => <Settings/>}/>
