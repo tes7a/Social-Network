@@ -1,23 +1,22 @@
 import React, { ChangeEvent } from "react";
 import classes from './MyPosts.module.css';
 import Posts from "./Posts/Posts";
-import {PostsType} from '../../../Redux/store'
+import {ActionTypes, addPost, changeText, PostsType} from '../../../Redux/store'
 
 export type MyPostsType = {
-    posts: PostsType[]
-    addPost: (postMessage: string) => void
-    changeText: (newText: string) => void
-    message: string
+    posts: PostsType[],
+    message: string,
+    dispatch: (action: ActionTypes) => void,
 }
 
-const MyPosts:React.FC<MyPostsType> = ({posts,addPost,message,changeText}) => {
+const MyPosts:React.FC<MyPostsType> = ({posts,message,dispatch}) => {
     const postElem = posts.map(p => <Posts massage={p.message} like={p.likeCount} id={p.id}/>)
     const addPostHandler = () => {
-        addPost(message)
-        changeText('')
+        dispatch(addPost(message))
+        dispatch(changeText(''))
     }
     const onChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        changeText(e.currentTarget.value)
+        dispatch(changeText(e.currentTarget.value))
     }
 
     return (

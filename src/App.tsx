@@ -23,10 +23,10 @@ const App: React.FC<AppType> = ({store}) => {
                 <Header/>
                 <NavBar/>
                 <div className="app-wrapper-content">
-                    <Route exact path="/dialog" render={() => <Dialogs state={state.dialogsPage}/>}/>
+                    <Route exact path="/dialog" render={() => <Dialogs state={state.dialogsPage} dispatch={store.dispatch.bind(store)}
+                                                                       newDialog={state.dialogsPage.newMessageBody}/>}/>
                     <Route path="/profile" render={() => <Profile state={state.profilePage}
-                                                  addPost={store.addPost.bind(store)}
-                                                  changeText={store.changeText.bind(store)}/>}/>
+                                                                  dispatch={store.dispatch.bind(store)}/>}/>
                     <Route path="/news" render={() => <News/>}/>
                     <Route path="/music" render={() => <Music/>}/>
                     <Route path="/settings" render={() => <Settings/>}/>

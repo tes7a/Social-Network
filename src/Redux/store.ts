@@ -1,27 +1,28 @@
 export type TypeDialog = {
-    name: string
-    id: number
+    name: string,
+    id: number,
 }
 
 export type MessagesType = {
     id: number,
-    message: string
+    message: string,
 }
 
 export type PostsType = {
     id: number,
     likeCount: number,
-    message: string
+    message: string,
 }
 
 export type ProfilePageType = {
     messageForNewPost: string,
-    posts: PostsType[]
+    posts: PostsType[],
 }
 
 export type DialogsPageType = {
     dialogs: TypeDialog[],
-    messages: MessagesType[]
+    messages: MessagesType[],
+    newMessageBody: string,
 }
 
 export type SidebarType = {}
@@ -29,17 +30,54 @@ export type SidebarType = {}
 export type RootStateType = {
     profilePage: ProfilePageType,
     dialogsPage: DialogsPageType,
-    sidebar: SidebarType
+    sidebar: SidebarType,
 }
 
 export type storeType = {
     _state: RootStateType,
-    changeText: (newText: string) => void,
-    addPost: (postMessage: string) => void,
     _renderTree: () => void,
     subscribe: (observer: () => void) => void,
-    gateState: () => RootStateType
+    gateState: () => RootStateType,
+    dispatch: (action: ActionTypes) => void,
 }
+
+export type ActionTypes = AddPostType | ChangeTextType | NewMessageBodyDialogType | SendMessageType
+
+export type AddPostType = ReturnType<typeof addPost>;
+
+export const addPost = (postMessage: string) => {
+    return {
+        type: "ADD-POST",
+        postMessage,
+    } as const
+};
+
+export type ChangeTextType = ReturnType<typeof changeText>;
+
+export const changeText = (newText: string) => {
+    return {
+        type: "CHANGE-TEXT",
+        newText,
+    } as const
+};
+
+type NewMessageBodyDialogType = ReturnType<typeof newMessageBodyDialog>;
+
+export const newMessageBodyDialog = (body: string) => {
+    return {
+        type: "NEW-MESSAGE-BODY",
+        body,
+    } as const
+};
+
+type SendMessageType = ReturnType<typeof sendMessage>;
+
+export const sendMessage = (newMessage: string) => {
+    return{
+        type: "SEND-MESSAGE",
+        newMessage
+    }as const
+};
 
 export const store: storeType = {
     _state: {
@@ -58,7 +96,7 @@ export const store: storeType = {
                 {id: 4, name: "Max"},
                 {id: 5, name: "Rada"},
                 {id: 6, name: "Ruslan"},
-                {id: 7, name: "Karlitsa"}
+                {id: 7, name: "Nastya"}
             ],
             messages: [
                 {id: 1, message: "Hi"},
@@ -66,22 +104,10 @@ export const store: storeType = {
                 {id: 3, message: "How are you?"},
                 {id: 4, message: "Gl"},
                 {id: 5, message: "Thx"}
-            ]
+            ],
+            newMessageBody: '',
         },
         sidebar: {}
-    },
-    changeText(newText: string) {
-        this._state.profilePage.messageForNewPost = newText
-        this._renderTree();
-    },
-    addPost(postMessage: string) {
-        const newPost: PostsType = {
-            id: new Date().getTime(),
-            message: postMessage,
-            likeCount: 0
-        }
-        this._state.profilePage.posts.push(newPost)
-        this._renderTree();
     },
     _renderTree() {
         console.log("state changed")
@@ -92,4 +118,27 @@ export const store: storeType = {
     gateState() {
         return this._state
     },
+    dispatch(action) {
+        if (action.type === "ADD-POST") {
+            const newPost: PostsType = {
+                id: new Date().getTime(),
+                message: action.postMessage,
+                likeCount: 0
+            }
+            this._state.profilePage.posts.push(newPost);
+            this._renderTree();
+        } else if (action.type === "CHANGE-TEXT") {
+            this._state.profilePage.messageForNewPost = action.newText;
+            this._renderTree();
+        } else if (action.type === "NEW-MESSAGE-BODY") {
+            this._state.dialogsPage.newMessageBody = action.body;
+            this._renderTree();
+        }else if (action.type === 'SEND-MESSAGE'){
+            let body = this._state.dialogsPage.newMessageBody;
+            this._state.dialogsPage.newMessageBody = '' ;
+            this._state.dialogsPage.messages.push(
+                {id: new Date().getTime(),
+                 message: body});
+        }
+    }
 }
