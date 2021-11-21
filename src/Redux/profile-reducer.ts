@@ -1,8 +1,11 @@
 import {ActionTypes, PostsType, ProfilePageType, RootStateType, store} from "./store";
 
 const initialState: ProfilePageType = {
-    messageForNewPost: 'asdsd',
-    posts: [] as PostsType[],
+    messageForNewPost: '',
+    posts: [
+        {id: 1, likeCount: 15, message: "Hi, how are you?"},
+        {id: 2, likeCount: 20, message: "It's my first post"}
+    ]
 }
 
 
