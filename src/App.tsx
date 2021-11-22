@@ -9,13 +9,15 @@ import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
 import Profile from "./components/Profile/Profile";
 import {RootStateType, store, storeType} from './Redux/store'
+import {Store} from "redux";
+import {AppRootStateType} from "./Redux/redux-store";
 
 type AppType = {
-    store: storeType
+    store: Store<AppRootStateType, any>
 }
 
 const App: React.FC<AppType> = ({store}) => {
-    const state = store.gateState();
+    const state = store.getState()
 
     return (
         <BrowserRouter>
