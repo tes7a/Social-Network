@@ -1,27 +1,26 @@
 import React, {ChangeEvent} from "react";
-import {NavLink} from "react-router-dom";
 import classes from "./Dialogs.module.css";
 import {DialogItem} from "./DialogItem/DialogItem";
 import {MessagesItem} from "./MessagesItem/MessagesItem";
 import {ActionTypes, DialogsPageType} from "../../Redux/store";
-import {newMessageBodyDialog, sendMessage} from "../../Redux/dialogs-reducer";
 
 type DialogType = {
-    newDialog: string,
+    newDialog: string
     state: DialogsPageType,
-    dispatch: (action: ActionTypes) => void,
+    sendMessage: (text: string) => void,
+    newMessageBodyDialog: (text: string) => void,
 }
 
-export const Dialogs:React.FC<DialogType> = ({state, dispatch, newDialog}) => {
+export const Dialogs:React.FC<DialogType> = ({state,  newDialog,sendMessage,newMessageBodyDialog}) => {
     let dialogsElements = state.dialogs.map(d => <DialogItem name={d.name} id={d.id}/>)
     let messageElements = state.messages.map(m => <MessagesItem message={m.message} id={m.id}/>)
 
     const onSendMessageClick = () => {
-        dispatch(sendMessage(newDialog))
-        dispatch(newMessageBodyDialog(''))
+        sendMessage(newDialog);
+        newMessageBodyDialog('');
     }
     const onChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        dispatch(newMessageBodyDialog(e.currentTarget.value))
+        newMessageBodyDialog(e.currentTarget.value);
     }
 
     return (

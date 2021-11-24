@@ -8,12 +8,12 @@ import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
 import Profile from "./components/Profile/Profile";
-import {RootStateType, store, storeType} from './Redux/store'
 import {Store} from "redux";
 import {AppRootStateType} from "./Redux/redux-store";
+import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 
 type AppType = {
-    store: Store<AppRootStateType, any>
+    store: Store<AppRootStateType, any>,
 }
 
 const App: React.FC<AppType> = ({store}) => {
@@ -25,10 +25,8 @@ const App: React.FC<AppType> = ({store}) => {
                 <Header/>
                 <NavBar/>
                 <div className="app-wrapper-content">
-                    <Route exact path="/dialog" render={() => <Dialogs state={state.dialogsPage} dispatch={store.dispatch.bind(store)}
-                                                                       newDialog={state.dialogsPage.newMessageBody}/>}/>
-                    <Route path="/profile" render={() => <Profile state={state.profilePage}
-                                                                  dispatch={store.dispatch.bind(store)}/>}/>
+                    <Route exact path="/dialog" render={() => <DialogsContainer store={store}/>}/>
+                    <Route path="/profile" render={() => <Profile store={store}/>}/>
                     <Route path="/news" render={() => <News/>}/>
                     <Route path="/music" render={() => <Music/>}/>
                     <Route path="/settings" render={() => <Settings/>}/>

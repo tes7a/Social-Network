@@ -1,25 +1,23 @@
 import React, { ChangeEvent } from "react";
 import classes from './MyPosts.module.css';
 import Posts from "./Posts/Posts";
-import {ActionTypes, PostsType} from '../../../Redux/store'
-import { addPost, changeText } from "../../../Redux/profile-reducer";
-
-
+import {PostsType} from '../../../Redux/store'
 
 export type MyPostsType = {
     posts: PostsType[],
     message: string,
-    dispatch: (action: ActionTypes) => void,
+    changeText: (text: string) => void,
+    addPost: (text: string) => void
 }
 
-const MyPosts:React.FC<MyPostsType> = ({posts,message,dispatch}) => {
+export const MyPosts:React.FC<MyPostsType> = ({posts,message,changeText, addPost}) => {
     const postElem = posts.map(p => <Posts massage={p.message} like={p.likeCount} id={p.id}/>)
     const addPostHandler = () => {
-        dispatch(addPost(message))
-        dispatch(changeText(''))
+        addPost(message);
+        addPost('');
     }
     const onChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        dispatch(changeText(e.currentTarget.value))
+        changeText(e.currentTarget.value);
     }
 
     return (
@@ -39,5 +37,3 @@ const MyPosts:React.FC<MyPostsType> = ({posts,message,dispatch}) => {
         </div>
     )
 }
-
-export default MyPosts;
