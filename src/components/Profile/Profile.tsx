@@ -1,7 +1,6 @@
 import React from "react";
 import classes from './Profile.module.css';
 import {ProfileInfo} from "./MyPosts/ProfileInfo/ProfileInfo";
-import {ActionTypes, ProfilePageType,} from "../../Redux/store";
 import { MyPostsContainer } from "./MyPosts/MyPostsContainer";
 import {Store} from "redux";
 import {AppRootStateType} from "../../Redux/redux-store";
@@ -17,8 +16,7 @@ const Profile: React.FC<ProfileType> = ({store}) => {
     return (
         <div>
             <ProfileInfo/>
-            <MyPostsContainer posts={state.profilePage.posts} message={state.profilePage.messageForNewPost}
-                              store={store}/>
+            <MyPostsContainer/>
         </div>
     )
 }

@@ -1,7 +1,20 @@
-import {ActionTypes, DialogsPageType, RootStateType, store} from "./store";
+export type DialogsPageType = {
+    dialogs: TypeDialog[],
+    messages: MessagesType[],
+    newMessageBody: string,
+}
 
-// const rootState: RootStateType = store.gateState();
-const initialState = {
+export type TypeDialog = {
+    name: string,
+    id: number,
+}
+
+export type MessagesType = {
+    id: number,
+    message: string,
+}
+
+const initialState: DialogsPageType = {
     dialogs: [
         {id: 1, name: "Kostya"},
         {id: 2, name: "Tanya"},
@@ -21,7 +34,7 @@ const initialState = {
     newMessageBody: '',
 }
 
-const dialogsReducer = (state = initialState, action: ActionTypes): DialogsPageType => {
+const dialogsReducer = (state: DialogsPageType = initialState, action: ActionTypesDialogsReducer): DialogsPageType => {
     switch (action.type) {
         case "NEW-MESSAGE-BODY": {
             state.newMessageBody = action.body;

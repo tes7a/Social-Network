@@ -1,43 +1,42 @@
 import profileReducer, {ActionTypesProfileReducer} from "./profile-reducer";
 import dialogsReducer, {ActionTypesDialogsReducer} from "./dialogs-reducer";
-import sidebarReducer from "./sidebar-reducer";
 
-export type TypeDialog = {
+type TypeDialog = {
     name: string,
     id: number,
 }
 
-export type MessagesType = {
+type MessagesType = {
     id: number,
     message: string,
 }
 
-export type PostsType = {
+type PostsType = {
     id: number,
     likeCount: number,
     message: string,
 }
 
-export type ProfilePageType = {
+type ProfilePageType = {
     messageForNewPost: string,
     posts: PostsType[],
 }
 
-export type DialogsPageType = {
+type DialogsPageType = {
     dialogs: TypeDialog[],
     messages: MessagesType[],
     newMessageBody: string,
 }
 
-export type SidebarType = {}
+type SidebarType = {}
 
-export type RootStateType = {
+type RootStateType = {
     profilePage: ProfilePageType,
     dialogsPage: DialogsPageType,
     sidebar: SidebarType,
 }
 
-export type storeType = {
+type storeType = {
     _state: RootStateType,
     _renderTree: () => void,
     subscribe: (observer: () => void) => void,
@@ -45,7 +44,7 @@ export type storeType = {
     dispatch: (action: ActionTypes) => void,
 }
 
-export type ActionTypes = ActionTypesDialogsReducer | ActionTypesProfileReducer
+type ActionTypes = ActionTypesDialogsReducer | ActionTypesProfileReducer
 
 export const store: storeType = {
     _state: {
@@ -87,9 +86,9 @@ export const store: storeType = {
         return this._state
     },
     dispatch(action) {
-       this._state.profilePage = profileReducer(this._state.profilePage, action);
-       this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action);
-       this._state.sidebar = sidebarReducer(this._state.sidebar, action);
-       this._renderTree()
+       // this._state.profilePage = profileReducer(this._state.profilePage, action);
+       // this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action);
+       // this._state.sidebar = sidebarReducer(this._state.sidebar, action);
+       // this._renderTree()
     }
 }
