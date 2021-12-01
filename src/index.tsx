@@ -6,12 +6,11 @@ import {Provider} from "react-redux";
 import {Store} from "redux";
 
 const renderTree = (state: Store<AppRootStateType, any>) => {
-    // const state = store.gateState
 
     ReactDOM.render(
         <Provider store={state}>
             <React.StrictMode>
-                <App store={state}/>
+                <App/>
             </React.StrictMode>,
         </Provider>,
         document.getElementById('root')

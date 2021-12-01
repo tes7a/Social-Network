@@ -5,15 +5,16 @@ import {MessagesItem} from "./MessagesItem/MessagesItem";
 import { DialogsPageType } from "../../Redux/dialogs-reducer";
 
 type DialogType = {
-    newDialog: string,
-    state: DialogsPageType,
+    dialogsPage: DialogsPageType,
     sendMessage: (text: string) => void,
     newMessageBodyDialog: (text: string) => void,
 }
 
-export const Dialogs:React.FC<DialogType> = ({state,  newDialog,sendMessage,newMessageBodyDialog}) => {
-    let dialogsElements = state.dialogs.map(d => <DialogItem name={d.name} id={d.id}/>)
-    let messageElements = state.messages.map(m => <MessagesItem message={m.message} id={m.id}/>)
+export const Dialogs:React.FC<DialogType> = ({dialogsPage ,sendMessage,newMessageBodyDialog}) => {
+    let dialogsElements = dialogsPage.dialogs.map(d => <DialogItem name={d.name} id={d.id}/>)
+    let messageElements = dialogsPage.messages.map(m => <MessagesItem message={m.message} id={m.id}/>)
+
+    const newDialog = dialogsPage.newMessageBody;
 
     const onSendMessageClick = () => {
         sendMessage(newDialog);

@@ -6,28 +6,28 @@ import Posts from "./Posts/Posts";
 
 export type MyPostsType = {
     posts: PostsType[],
-    message: string,
-    changeText: (text: string) => void,
-    addPost: (text: string) => void
+    messageForNewPost: string,
+    addPostHandler: (message: string) => void,
+    onChangeHandler: (text: string) => void,
 }
 
-export const MyPosts:React.FC<MyPostsType> = ({posts,message,changeText, addPost}) => {
+export const MyPosts:React.FC<MyPostsType> = ({posts,messageForNewPost,onChangeHandler, addPostHandler}) => {
     const postElem = posts.map(p => <Posts massage={p.message} like={p.likeCount} id={p.id}/>)
-    const addPostHandler = () => {
-        addPost(message);
-        addPost('');
+
+    const addPostHandler_ = () => {
+        addPostHandler(messageForNewPost);
     }
-    const onChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        changeText(e.currentTarget.value);
+    const onChangeHandler_ = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        onChangeHandler(e.currentTarget.value);
     }
 
     return (
         <div className={classes.postBlock}>
             <h3>My Posts</h3>
             <div>
-                <textarea value={message} onChange={onChangeHandler}> </textarea>
+                <textarea value={messageForNewPost} onChange={onChangeHandler_}> </textarea>
             </div>
-            <button onClick={addPostHandler}>Add post</button>
+            <button onClick={addPostHandler_}>Add post</button>
             <button>Remove</button>
             <div>
                 New posts

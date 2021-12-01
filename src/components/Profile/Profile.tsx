@@ -5,13 +5,7 @@ import { MyPostsContainer } from "./MyPosts/MyPostsContainer";
 import {Store} from "redux";
 import {AppRootStateType} from "../../Redux/redux-store";
 
-
-export type ProfileType = {
-    store: Store<AppRootStateType, any>,
-}
-
-const Profile: React.FC<ProfileType> = ({store}) => {
-    const state = store.getState()
+const Profile = () => {
 
     return (
         <div>

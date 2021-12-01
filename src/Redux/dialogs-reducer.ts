@@ -37,8 +37,8 @@ const initialState: DialogsPageType = {
 const dialogsReducer = (state: DialogsPageType = initialState, action: ActionTypesDialogsReducer): DialogsPageType => {
     switch (action.type) {
         case "NEW-MESSAGE-BODY": {
-            state.newMessageBody = action.body;
-            return state
+            // state.newMessageBody = action.body;
+            return {...state, newMessageBody: action.text}
         }
         case "SEND-MESSAGE": {
             let body = state.newMessageBody;
@@ -59,10 +59,10 @@ export type ActionTypesDialogsReducer = NewMessageBodyDialogType | SendMessageTy
 
 export type NewMessageBodyDialogType = ReturnType<typeof newMessageBodyDialog>;
 
-export const newMessageBodyDialog = (body: string) => {
+export const newMessageBodyDialog = (text: string) => {
     return {
         type: "NEW-MESSAGE-BODY",
-        body,
+        text,
     } as const
 };
 

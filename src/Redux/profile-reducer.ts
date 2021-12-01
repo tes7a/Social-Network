@@ -20,17 +20,16 @@ const initialState: ProfilePageType = {
 const profileReducer = (state = initialState, action: ActionTypesProfileReducer): ProfilePageType => {
     switch (action.type) {
         case "ADD-POST": {
+            debugger
             const newPost: PostsType = {
                 id: new Date().getTime(),
                 message: action.postMessage,
                 likeCount: 0
             }
-            state.posts.push(newPost);
-            return state
+            return {...state, posts: [...state.posts, newPost]}
         }
         case "CHANGE-TEXT": {
-            state.messageForNewPost = action.newText
-            return state
+            return {...state, messageForNewPost: action.newText}
         }
         default:
             return state
