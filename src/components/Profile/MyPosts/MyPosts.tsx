@@ -12,7 +12,7 @@ export type MyPostsType = {
 }
 
 export const MyPosts:React.FC<MyPostsType> = ({posts,messageForNewPost,onChangeHandler, addPostHandler}) => {
-    const postElem = posts.map(p => <Posts massage={p.message} like={p.likeCount} id={p.id}/>)
+    const postElem = posts.map(p => <Posts massage={p.message} key={p.id} like={p.likeCount} id={p.id}/>)
 
     const addPostHandler_ = () => {
         addPostHandler(messageForNewPost);

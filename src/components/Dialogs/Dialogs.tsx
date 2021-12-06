@@ -11,8 +11,8 @@ type DialogType = {
 }
 
 export const Dialogs:React.FC<DialogType> = ({dialogsPage ,sendMessage,newMessageBodyDialog}) => {
-    let dialogsElements = dialogsPage.dialogs.map(d => <DialogItem name={d.name} id={d.id}/>)
-    let messageElements = dialogsPage.messages.map(m => <MessagesItem message={m.message} id={m.id}/>)
+    let dialogsElements = dialogsPage.dialogs.map(d => <DialogItem name={d.name} key={d.id} id={d.id}/>)
+    let messageElements = dialogsPage.messages.map(m => <MessagesItem message={m.message} key={m.id} id={m.id}/>)
 
     const newDialog = dialogsPage.newMessageBody;
 
