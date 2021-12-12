@@ -17,10 +17,16 @@ export type UserType = {
 
 export type InitialState = {
     users: UserType[],
+    pageSize: number,
+    totalUserCount: number,
+    currentPage: number,
 }
 
 const initialState: InitialState = {
-    users: []
+    users: [],
+    pageSize: 5,
+    totalUserCount: 0,
+    currentPage: 1
 }
 
 export const userReducer = (state = initialState, action: ActionsTypeUsersReducer): InitialState => {
@@ -36,13 +42,17 @@ export const userReducer = (state = initialState, action: ActionsTypeUsersReduce
                 users: state.users.map(u => u.id === action.userId ? {...u, followed: false} : u)
             }
         case "SET-USERS":
-            return {...state, users: [...state.users, ...action.users]}
+            return {...state, users: action.users}
+        case "SET-CURRENT-PAGE":
+            return {...state, currentPage: action.currentPage}
+        case "SET-USER-TOTAL-COUNT":
+            return {...state, totalUserCount: action.totalCount}
         default:
             return state
     }
 };
 
-type ActionsTypeUsersReducer = FollowType | UnFollowType | SetUsersType;
+type ActionsTypeUsersReducer = FollowType | UnFollowType | SetUsersType | SetCurrentPageType | SetUserTotalCount;
 
 type FollowType = ReturnType<typeof followAC>;
 
@@ -62,11 +72,29 @@ export const unFollowAC = (userId: number) => {
     } as const
 };
 
-type SetUsersType = ReturnType<typeof setUsers>;
+type SetUsersType = ReturnType<typeof setUsersAC>;
 
-export const setUsers = (users: UserType[]) => {
+export const setUsersAC = (users: UserType[]) => {
     return {
         type: 'SET-USERS',
         users
     } as const
+};
+
+type SetCurrentPageType = ReturnType<typeof setCurrentPageAC>;
+
+export const setCurrentPageAC = (currentPage: number) => {
+    return{
+        type: 'SET-CURRENT-PAGE',
+        currentPage
+    }as const
+};
+
+type SetUserTotalCount = ReturnType<typeof setUserTotalCountAC>;
+
+export const setUserTotalCountAC = (totalCount: number) => {
+    return{
+        type: 'SET-USER-TOTAL-COUNT',
+        totalCount
+    }as const
 };
