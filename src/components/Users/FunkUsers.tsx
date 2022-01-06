@@ -1,6 +1,6 @@
 import React from "react";
 import {UserType} from "../../Redux/users-reducer";
-import s from './users.module.css'
+import './users.module.css'
 import axios from "axios";
 import user from '../../assets/images/user.jpg';
 
@@ -26,7 +26,7 @@ export const FunkUsers: React.FC<UsersType> = ({users, follow, unFollow, setUser
             users.map(u => <div key={u.id}>
                 <span>
                     <div>
-                        <img src={u.photos.small != null ? u.photos.small : user} className={s.userPhoto}/>
+                        <img src={u.photos.small != null ? u.photos.small : user} className={"photo"}/>
                     </div>
                     <div>
                         {u.followed ? <button onClick={() => {
