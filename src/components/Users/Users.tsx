@@ -13,7 +13,7 @@ type UsersComponentType = {
     currentPageHandler: (pageNumber: number) => void
 }
 
-export const Users  = (props: UsersComponentType) => {
+export const Users = (props: UsersComponentType) => {
 
     const pagesCount = Math.ceil(props.totalUserCount / props.pageSize);
 
