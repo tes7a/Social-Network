@@ -1,16 +1,58 @@
 export type ProfilePageType = {
     messageForNewPost: string,
     posts: PostsType[],
-    profile: null,
+    profile: ProfileType,
 }
+
 export type PostsType = {
     id: number,
     likeCount: number,
     message: string,
 }
 
+export type ProfileType = {
+    userId: number
+    lookingForAJob: boolean
+    lookingForAJobDescription:string
+    fullName: string
+    contacts: {
+        github: string
+        vk: string
+        facebook: string
+        instagram: string
+        twitter: string
+        website: string
+        youtube: string
+        mainLink: string
+    }
+    photos: {
+        small: string,
+        large: string,
+    }
+}
+
+
 const initialState: ProfilePageType = {
-    profile: null,
+    profile: {
+        userId: 2,
+        lookingForAJob: false,
+        lookingForAJobDescription: '',
+        fullName: '',
+        contacts: {
+            github: '',
+            facebook: '',
+            instagram: '',
+            vk: '',
+            mainLink: '',
+            twitter: '',
+            website: '',
+            youtube: '',
+        },
+        photos: {
+            small: '',
+            large: ''
+        }
+    },
     messageForNewPost: '',
     posts: [
         {id: 1, likeCount: 15, message: "Hi, how are you?"},
@@ -59,7 +101,7 @@ export const changeText = (newText: string) => {
 
 export type SetUserProfileType = ReturnType<typeof setUserProfileAC>
 
-export const setUserProfileAC = (profile: null) => {
+export const setUserProfileAC = (profile: ProfileType) => {
     return {
         type: "SET-USER-PROFILE",
         profile

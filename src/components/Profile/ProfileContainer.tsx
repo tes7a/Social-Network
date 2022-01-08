@@ -3,13 +3,13 @@ import {Profile} from "./Profile";
 import axios from "axios";
 import {connect} from "react-redux";
 import {AppRootStateType} from "../../Redux/redux-store";
-import { setUserProfileAC } from "../../Redux/profile-reducer";
-
+import {ProfileType, setUserProfileAC} from "../../Redux/profile-reducer";
 
 // UI
-export class ProfileContainer extends React.Component<ProfileContainerType> {
-    componentDidMount() {
 
+export class ProfileContainer extends React.Component<ProfileContainerType> {
+
+    componentDidMount() {
         axios.get(`https://social-network.samuraijs.com/api/1.0/profile/2`).then(res => {
             this.props.setUserProfile(res.data)
         });
@@ -18,7 +18,7 @@ export class ProfileContainer extends React.Component<ProfileContainerType> {
 
     render() {
         return (
-            <Profile {...this.props} profile={this.props.profile}/>
+            <Profile profile={this.props.profile}/>
         )
     }
 }
@@ -37,10 +37,10 @@ export const ProfileConnectContainer = connect(mapStateToProps, {
 //type
 
 type ProfileContainerType = {
-    profile: null,
-    setUserProfile: (profile: null) => void,
+    profile: ProfileType,
+    setUserProfile: (profile: ProfileType) => void,
 }
 
 type MapStateToPropsType = {
-    profile: null,
+    profile: ProfileType,
 }
