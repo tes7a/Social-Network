@@ -36,7 +36,6 @@ export const Dialogs:React.FC<DialogType> = ({dialogsPage ,sendMessage,newMessag
                 <div><textarea value={newDialog} onChange={onChangeHandler}>x</textarea></div>
                 <div><button onClick={onSendMessageClick}>Send</button></div>
             </div>
-
         </div>
     )
 }

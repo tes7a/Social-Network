@@ -109,9 +109,9 @@ export const setUserTotalCountAC = (totalCount: number) => {
     }as const
 };
 
-type TypeSetToggleIsFetching = ReturnType<typeof setToggleIsFetching>;
+type TypeSetToggleIsFetching = ReturnType<typeof setToggleIsFetchingAC>;
 
-export const setToggleIsFetching = (isFetching: boolean) => {
+export const setToggleIsFetchingAC = (isFetching: boolean) => {
     return{
         type: 'SET-TOGGLE-IS-FETCHING',
         isFetching
