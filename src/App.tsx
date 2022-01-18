@@ -8,7 +8,7 @@ import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
 import { DialogsContainer } from "./components/Dialogs/DialogsContainer";
 import {UsersContainer} from "./components/Users/UsersContainer";
-import {ProfileConnectContainer, ProfileContainer} from "./components/Profile/ProfileContainer";
+import {ProfileConnectContainer} from "./components/Profile/ProfileContainer";
 
 const App= () => {
 
@@ -19,7 +19,7 @@ const App= () => {
                 <NavBar/>
                 <div className="app-wrapper-content">
                     <Route exact path="/dialog" render={() => <DialogsContainer />}/>
-                    <Route path="/profile" render={() => <ProfileConnectContainer/>}/>
+                    <Route path="/profile/:userId?" render={() => <ProfileConnectContainer/>}/>
                     <Route path="/news" render={() => <News/>}/>
                     <Route path="/music" render={() => <Music/>}/>
                     <Route path="/settings" render={() => <Settings/>}/>

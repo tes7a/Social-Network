@@ -21,6 +21,8 @@ export const ProfileInfo = (props: ProfileInfoType) => {
             <div className={classes.descriptionBlock}>
                 <img src={props.profile.photos.large}/>
                 ava + description
+                {props.profile.fullName}
+                {props.profile.userId}
             </div>
         </div>)
 }

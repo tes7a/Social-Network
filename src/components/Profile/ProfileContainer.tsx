@@ -8,10 +8,13 @@ import {RouteComponentProps, withRouter} from "react-router-dom";
 
 // UI
 
-export class ProfileContainer extends React.Component<PropsType> {
+class ProfileContainer extends React.Component<PropsType> {
 
     componentDidMount() {
-        const userId = this.props.match.params.userId
+        let userId = this.props.match.params.userId
+        if(!userId) {
+            userId = '2';
+        }
         axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)
             .then(res => {
             this.props.setUserProfile(res.data)
@@ -33,13 +36,13 @@ const mapStateToProps = (state: AppRootStateType): MapStateToPropsType => {
     }
 };
 
+const withUrlDataContainerComponent = withRouter(ProfileContainer);
+
 export const ProfileConnectContainer = connect(mapStateToProps, {
     setUserProfile: setUserProfileAC,
-})(ProfileContainer);
+})(withUrlDataContainerComponent);
 
 // withRouter
-
-const withUrlDataContainerComponent = withRouter(ProfileContainer);
 
 //type
 
