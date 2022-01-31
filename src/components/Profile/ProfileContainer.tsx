@@ -42,8 +42,6 @@ export const ProfileConnectContainer = connect(mapStateToProps, {
     setUserProfile: setUserProfileAC,
 })(withUrlDataContainerComponent);
 
-// withRouter
-
 //type
 
 type ProfileContainerType = {
