@@ -3,6 +3,7 @@ import {UserType} from "../../Redux/users-reducer";
 import './users.module.css'
 import axios from "axios";
 import user from '../../assets/images/user.jpg';
+import { userAPI } from "../../api/api";
 
 type UsersType = {
     users: UserType[],
@@ -14,8 +15,9 @@ type UsersType = {
 export const FunkUsers: React.FC<UsersType> = ({users, follow, unFollow, setUsers}) => {
     const getUsers = () => {
         if (users.length === 0) {
-            axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
-                setUsers(response.data.items)
+            userAPI.getUsers()
+                .then(res => {
+                setUsers(res.items)
             });
         }
     }
