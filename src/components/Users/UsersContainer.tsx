@@ -40,7 +40,12 @@ class UsersComponentContainer extends React.Component<UsersComponentContainerTyp
     componentDidMount() {
         if (this.props.users.length === 0) {
             this.props.setToggleFetching(true);
-            axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`).then(response => {
+            axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`, {
+                withCredentials: true,
+                headers: {
+                    'API-KEY': '48fd56ac-8cc3-45ea-82e5-98928a417a7f'
+                }
+            }).then(response => {
                 this.props.setToggleFetching(false);
                 this.props.setUsers(response.data.items);
                 this.props.setUserTotalCount(response.data.totalCount);
@@ -51,7 +56,12 @@ class UsersComponentContainer extends React.Component<UsersComponentContainerTyp
     currentPageHandler = (pageNumber: number) => {
         this.props.setToggleFetching(true);
         this.props.setCurrentPage(pageNumber)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`).then(response => {
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`, {
+            withCredentials: true,
+            headers: {
+                'API-KEY': '48fd56ac-8cc3-45ea-82e5-98928a417a7f'
+            }
+        }).then(response => {
             this.props.setToggleFetching(false);
             this.props.setUsers(response.data.items)
         });
