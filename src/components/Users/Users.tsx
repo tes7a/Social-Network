@@ -13,7 +13,8 @@ type UsersComponentType = {
     users: UserType[],
     follow: (userId: number) => void,
     unFollow: (userId: number) => void,
-    currentPageHandler: (pageNumber: number) => void
+    currentPageHandler: (pageNumber: number) => void,
+    togleIsFollowingProgress: (isFetching: boolean) => void
 }
 
 export const Users = (props: UsersComponentType) => {
