@@ -37,6 +37,7 @@ type UsersComponentContainerType = {
     isFetching: boolean,
     setToggleFetching: (isFetching: boolean) => void,
     togleIsFollowingProgress: (isFetching: boolean) => void
+    followingInProgress: boolean
 }
 
 class UsersComponentContainer extends React.Component<UsersComponentContainerType> {
@@ -71,7 +72,9 @@ class UsersComponentContainer extends React.Component<UsersComponentContainerTyp
             <Users users={this.props.users} currentPage={this.props.currentPage}
                    currentPageHandler={this.currentPageHandler} pageSize={this.props.pageSize}
                    follow={this.props.follow} unFollow={this.props.unFollow}
-                   totalUserCount={this.props.totalUserCount} togleIsFollowingProgress={this.props.togleIsFollowingProgress}/>
+                   totalUserCount={this.props.totalUserCount} togleIsFollowingProgress={this.props.togleIsFollowingProgress}
+                   followingInProgress={this.props.followingInProgress}
+            />
         </>
     }
 }

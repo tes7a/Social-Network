@@ -14,7 +14,8 @@ type UsersComponentType = {
     follow: (userId: number) => void,
     unFollow: (userId: number) => void,
     currentPageHandler: (pageNumber: number) => void,
-    togleIsFollowingProgress: (isFetching: boolean) => void
+    togleIsFollowingProgress: (isFetching: boolean) => void,
+    followingInProgress: boolean
 }
 
 export const Users = (props: UsersComponentType) => {
@@ -45,21 +46,25 @@ export const Users = (props: UsersComponentType) => {
                         </NavLink>
                     </div>
                     <div>
-                        {u.followed ? <button onClick={() => {
+                        {u.followed ? <button disabled={props.followingInProgress} onClick={() => {
+                                props.togleIsFollowingProgress(true);
                                 userAPI.unfollow(u.id)
                                     .then(data => {
                                         if (data.resultCode === 0) {
                                             props.unFollow(u.id)
                                         }
+                                        props.togleIsFollowingProgress(false);
                                     });
 
                             }}>Unfollow</button>
-                            : <button onClick={() => {
+                            : <button disabled={props.followingInProgress} onClick={() => {
+                                props.togleIsFollowingProgress(true);
                                 userAPI.follow(u.id)
                                     .then(data => {
                                         if (data.resultCode === 0) {
                                             props.follow(u.id)
                                         }
+                                        props.togleIsFollowingProgress(false);
                                     });
                             }}>Follow</button>}
                     </div>
