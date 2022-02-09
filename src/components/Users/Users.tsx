@@ -14,8 +14,8 @@ type UsersComponentType = {
     follow: (userId: number) => void,
     unFollow: (userId: number) => void,
     currentPageHandler: (pageNumber: number) => void,
-    togleIsFollowingProgress: (isFetching: boolean) => void,
-    followingInProgress: boolean
+    togleIsFollowingProgress: (isFetching: boolean, userId: number) => void
+    followingInProgress: number[]
 }
 
 export const Users = (props: UsersComponentType) => {
@@ -46,25 +46,25 @@ export const Users = (props: UsersComponentType) => {
                         </NavLink>
                     </div>
                     <div>
-                        {u.followed ? <button disabled={props.followingInProgress} onClick={() => {
-                                props.togleIsFollowingProgress(true);
+                        {u.followed ? <button disabled={props.followingInProgress.some(id => id ===u.id)} onClick={() => {
+                                props.togleIsFollowingProgress(true, u.id);
                                 userAPI.unfollow(u.id)
                                     .then(data => {
                                         if (data.resultCode === 0) {
                                             props.unFollow(u.id)
                                         }
-                                        props.togleIsFollowingProgress(false);
+                                        props.togleIsFollowingProgress(false, u.id);
                                     });
 
                             }}>Unfollow</button>
-                            : <button disabled={props.followingInProgress} onClick={() => {
-                                props.togleIsFollowingProgress(true);
+                            : <button disabled={props.followingInProgress.some(id => id ===u.id)} onClick={() => {
+                                props.togleIsFollowingProgress(true, u.id);
                                 userAPI.follow(u.id)
                                     .then(data => {
                                         if (data.resultCode === 0) {
                                             props.follow(u.id)
                                         }
-                                        props.togleIsFollowingProgress(false);
+                                        props.togleIsFollowingProgress(false, u.id);
                                     });
                             }}>Follow</button>}
                     </div>

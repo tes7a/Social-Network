@@ -21,7 +21,7 @@ type MapStateToPropsType = {
     totalUserCount: number,
     currentPage: number,
     isFetching: boolean,
-    followingInProgress: boolean
+    followingInProgress: number[]
 }
 
 type UsersComponentContainerType = {
@@ -36,8 +36,8 @@ type UsersComponentContainerType = {
     setUserTotalCount: (totalCount: number) => void,
     isFetching: boolean,
     setToggleFetching: (isFetching: boolean) => void,
-    togleIsFollowingProgress: (isFetching: boolean) => void
-    followingInProgress: boolean
+    togleIsFollowingProgress: (isFetching: boolean, userId: number) => void
+    followingInProgress: number[]
 }
 
 class UsersComponentContainer extends React.Component<UsersComponentContainerType> {
