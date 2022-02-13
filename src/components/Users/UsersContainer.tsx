@@ -3,6 +3,7 @@ import {connect} from "react-redux";
 import {AppRootStateType} from "../../Redux/redux-store";
 import {
     followAC,
+    getUsersTC,
     setCurrentPageAC, setToggleIsFetchingAC,
     setUsersAC,
     setUserTotalCountAC,
@@ -14,6 +15,7 @@ import axios from "axios";
 import {Users} from "./Users";
 import {Preloader} from "../common/Preloader/Preloader";
 import {userAPI} from "../../api/api";
+import { Dispatch } from "redux";
 
 type MapStateToPropsType = {
     users: UserType[],
@@ -37,22 +39,24 @@ type UsersComponentContainerType = {
     isFetching: boolean,
     setToggleFetching: (isFetching: boolean) => void,
     togleIsFollowingProgress: (isFetching: boolean, userId: number) => void
-    followingInProgress: number[]
+    followingInProgress: number[],
+    getUsersTC: (currentPage: number, pageSize: number) => void
 }
 
 class UsersComponentContainer extends React.Component<UsersComponentContainerType> {
 
     componentDidMount() {
-        if (this.props.users.length === 0) {
-            this.props.setToggleFetching(true);
-
-            userAPI.getUsers(this.props.currentPage, this.props.pageSize)
-           .then(data => {
-                this.props.setToggleFetching(false);
-                this.props.setUsers(data.items);
-                this.props.setUserTotalCount(data.totalCount);
-            });
-        }
+        this.props.getUsersTC(this.props.currentPage,this.props.pageSize)
+        // if (this.props.users.length === 0) {
+        //     this.props.setToggleFetching(true);
+        //
+        //     userAPI.getUsers(this.props.currentPage, this.props.pageSize)
+        //    .then(data => {
+        //         this.props.setToggleFetching(false);
+        //         this.props.setUsers(data.items);
+        //         this.props.setUserTotalCount(data.totalCount);
+        //     });
+        // }
     };
 
     currentPageHandler = (pageNumber: number) => {
@@ -97,5 +101,6 @@ export const UsersContainer = connect(mapStateToProps, {
     setCurrentPage: setCurrentPageAC,
     setUserTotalCount: setUserTotalCountAC,
     setToggleFetching: setToggleIsFetchingAC,
-    togleIsFollowingProgress: togleIsFollowingProgress
+    togleIsFollowingProgress: togleIsFollowingProgress,
+    getUsersTC: getUsersTC
 })(UsersComponentContainer);

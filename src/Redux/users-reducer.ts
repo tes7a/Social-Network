@@ -1,3 +1,6 @@
+import { Dispatch } from "redux";
+import { userAPI } from "../api/api";
+
 export type LocationType = {
     city: string,
     country: string,
@@ -131,3 +134,16 @@ export const setToggleIsFetchingAC = (isFetching: boolean) => {
 
 export const togleIsFollowingProgress = (isFetching: boolean, userId: number) =>
     ({type: 'TOGLE-IS-FOLLOWING', isFetching, userId} as const)
+
+export const getUsersTC = (currentPage?: number, pageSize?: number) => (dispatch: Dispatch) => {
+    if (initialState.users.length === 0) {
+        dispatch(setToggleIsFetchingAC(true));
+
+        userAPI.getUsers(currentPage, pageSize)
+            .then(data => {
+                dispatch(setToggleIsFetchingAC(false));
+                dispatch(setUsersAC(data.items));
+                dispatch(setUserTotalCountAC(data.totalCount));
+            });
+    }
+}
