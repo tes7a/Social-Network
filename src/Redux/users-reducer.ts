@@ -135,7 +135,7 @@ export const setToggleIsFetchingAC = (isFetching: boolean) => {
 export const togleIsFollowingProgress = (isFetching: boolean, userId: number) =>
     ({type: 'TOGLE-IS-FOLLOWING', isFetching, userId} as const)
 
-export const getUsersTC = (currentPage?: number, pageSize?: number) => (dispatch: Dispatch) => {
+export const getUsers = (currentPage?: number, pageSize?: number) => (dispatch: Dispatch) => {
     if (initialState.users.length === 0) {
         dispatch(setToggleIsFetchingAC(true));
 
@@ -146,4 +146,26 @@ export const getUsersTC = (currentPage?: number, pageSize?: number) => (dispatch
                 dispatch(setUserTotalCountAC(data.totalCount));
             });
     }
+}
+
+export const setFollow = (userId: number) => (dispatch: Dispatch) => {
+    dispatch(togleIsFollowingProgress(true, userId));
+    userAPI.follow(userId)
+        .then(data => {
+            if (data.resultCode === 0) {
+                dispatch(followAC(userId));
+            }
+            dispatch(togleIsFollowingProgress(false, userId));
+        });
+}
+
+export const setUnFollow = (userId: number) => (dispatch: Dispatch) => {
+    dispatch(togleIsFollowingProgress(true, userId));
+    userAPI.unfollow(userId)
+        .then(data => {
+            if (data.resultCode === 0) {
+                dispatch(unFollowAC(userId));
+            }
+           dispatch(togleIsFollowingProgress(false, userId));
+        });
 }
