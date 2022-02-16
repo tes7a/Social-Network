@@ -135,7 +135,7 @@ export const setToggleIsFetchingAC = (isFetching: boolean) => {
 export const togleIsFollowingProgress = (isFetching: boolean, userId: number) =>
     ({type: 'TOGLE-IS-FOLLOWING', isFetching, userId} as const)
 
-export const getUsersTC = (currentPage?: number, pageSize?: number) => (dispatch: Dispatch) => {
+export const getUsers = (currentPage?: number, pageSize?: number) => (dispatch: Dispatch) => {
     if (initialState.users.length === 0) {
         dispatch(setToggleIsFetchingAC(true));
 

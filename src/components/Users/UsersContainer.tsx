@@ -3,6 +3,7 @@ import {connect} from "react-redux";
 import {AppRootStateType} from "../../Redux/redux-store";
 import {
     followAC,
+    getUsers,
     setCurrentPageAC, setFollow, setUnFollow,
     setUsersAC,
     togleIsFollowingProgress,
@@ -29,13 +30,8 @@ type UsersComponentContainerType = {
     pageSize: number,
     totalUserCount: number,
     currentPage: number,
-    follow: (userId: number) => void,
-    unFollow: (userId: number) => void,
-    setUsers: (users: UserType[]) => void,
     setCurrentPage: (currentPage: number) => void,
-    setUserTotalCount: (totalCount: number) => void,
     isFetching: boolean,
-    setToggleFetching: (isFetching: boolean) => void,
     togleIsFollowingProgress: (isFetching: boolean, userId: number) => void
     followingInProgress: number[],
     getUsers: (currentPage: number, pageSize: number) => void,
@@ -60,7 +56,7 @@ class UsersComponentContainer extends React.Component<UsersComponentContainerTyp
                    currentPageHandler={this.currentPageHandler} pageSize={this.props.pageSize}
                    totalUserCount={this.props.totalUserCount}
                    followingInProgress={this.props.followingInProgress}
-                   setFollow={setFollow} setUnFollow={setUnFollow}
+                   setFollow={this.props.setFollow} setUnFollow={this.props.setUnFollow}
             />
         </>
     }
@@ -78,9 +74,6 @@ const mapStateToProps = (state: AppRootStateType): MapStateToPropsType => {
 };
 
 export const UsersContainer = connect(mapStateToProps, {
-    follow: followAC,
-    unFollow: unFollowAC,
-    setUsers: setUsersAC,
     setCurrentPage: setCurrentPageAC,
     getUsers: getUsers,
     setFollow: setFollow,
