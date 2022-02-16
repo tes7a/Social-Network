@@ -1,5 +1,5 @@
 import { Dispatch } from "redux";
-import {authAPI, userAPI } from "../api/api";
+import { userAPI } from "../api/api";
 
 export type LocationType = {
     city: string,
@@ -146,4 +146,26 @@ export const getUsersTC = (currentPage?: number, pageSize?: number) => (dispatch
                 dispatch(setUserTotalCountAC(data.totalCount));
             });
     }
+}
+
+export const setFollow = (userId: number) => (dispatch: Dispatch) => {
+    dispatch(togleIsFollowingProgress(true, userId));
+    userAPI.follow(userId)
+        .then(data => {
+            if (data.resultCode === 0) {
+                dispatch(followAC(userId));
+            }
+            dispatch(togleIsFollowingProgress(false, userId));
+        });
+}
+
+export const setUnFollow = (userId: number) => (dispatch: Dispatch) => {
+    dispatch(togleIsFollowingProgress(true, userId));
+    userAPI.unfollow(userId)
+        .then(data => {
+            if (data.resultCode === 0) {
+                dispatch(unFollowAC(userId));
+            }
+           dispatch(togleIsFollowingProgress(false, userId));
+        });
 }
