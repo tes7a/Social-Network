@@ -27,7 +27,6 @@ export const Users = (props: UsersComponentType) => {
         pages.push(i);
     }
 
-
     return <div>
         <div>
             {pages.map(p => {

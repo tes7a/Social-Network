@@ -47,16 +47,6 @@ class UsersComponentContainer extends React.Component<UsersComponentContainerTyp
 
     componentDidMount() {
         this.props.getUsersTC(this.props.currentPage,this.props.pageSize)
-        // if (this.props.users.length === 0) {
-        //     this.props.setToggleFetching(true);
-        //
-        //     userAPI.getUsers(this.props.currentPage, this.props.pageSize)
-        //    .then(data => {
-        //         this.props.setToggleFetching(false);
-        //         this.props.setUsers(data.items);
-        //         this.props.setUserTotalCount(data.totalCount);
-        //     });
-        // }
     };
 
     currentPageHandler = (pageNumber: number) => {

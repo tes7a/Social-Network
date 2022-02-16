@@ -1,5 +1,5 @@
 import { Dispatch } from "redux";
-import { userAPI } from "../api/api";
+import {authAPI, userAPI } from "../api/api";
 
 export type LocationType = {
     city: string,
