@@ -25,19 +25,14 @@ type MapStateToPropsType = {
     followingInProgress: number[]
 }
 
-type UsersComponentContainerType = {
-    users: UserType[],
-    pageSize: number,
-    totalUserCount: number,
-    currentPage: number,
+type MapDispatchToProps = {
     setCurrentPage: (currentPage: number) => void,
-    isFetching: boolean,
-    togleIsFollowingProgress: (isFetching: boolean, userId: number) => void
-    followingInProgress: number[],
-    getUsers: (currentPage: number, pageSize: number) => void,
+    getUsers:  (currentPage: number, pageSize: number) => void,
     setFollow: (userId: number) => void,
     setUnFollow: (userId: number) => void,
 }
+
+type UsersComponentContainerType = MapDispatchToProps & MapStateToPropsType
 
 class UsersComponentContainer extends React.Component<UsersComponentContainerType> {
 
@@ -52,8 +47,10 @@ class UsersComponentContainer extends React.Component<UsersComponentContainerTyp
     render() {
         return <>
             {this.props.isFetching && <Preloader/>}
-            <Users users={this.props.users} currentPage={this.props.currentPage}
-                   currentPageHandler={this.currentPageHandler} pageSize={this.props.pageSize}
+            <Users users={this.props.users}
+                   currentPage={this.props.currentPage}
+                   pageSize={this.props.pageSize}
+                   currentPageHandler={this.currentPageHandler}
                    totalUserCount={this.props.totalUserCount}
                    followingInProgress={this.props.followingInProgress}
                    setFollow={this.props.setFollow} setUnFollow={this.props.setUnFollow}
@@ -73,7 +70,7 @@ const mapStateToProps = (state: AppRootStateType): MapStateToPropsType => {
     }
 };
 
-export const UsersContainer = connect(mapStateToProps, {
+export const UsersContainer = connect<MapStateToPropsType , MapDispatchToProps , {}, AppRootStateType>(mapStateToProps, {
     setCurrentPage: setCurrentPageAC,
     getUsers: getUsers,
     setFollow: setFollow,
