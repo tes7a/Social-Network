@@ -22,7 +22,7 @@ class ProfileContainer extends React.Component<PropsType> {
 
     render() {
         return (
-            <Profile profile={this.props.profile}/>
+            <Profile profile={this.props.profile} isAuth={this.props.isAuth}/>
         )
     }
 }
@@ -30,7 +30,8 @@ class ProfileContainer extends React.Component<PropsType> {
 
 const mapStateToProps = (state: AppRootStateType): MapStateToPropsType => {
     return {
-        profile: state.profilePage.profile
+        profile: state.profilePage.profile,
+        isAuth: state.auth.isAuth
     }
 };
 
@@ -49,6 +50,7 @@ type ProfileContainerType = {
 
 type MapStateToPropsType = {
     profile: ProfileType,
+    isAuth: boolean
 }
 
 type PathParamsType = {

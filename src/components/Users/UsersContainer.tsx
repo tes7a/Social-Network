@@ -22,7 +22,8 @@ type MapStateToPropsType = {
     totalUserCount: number,
     currentPage: number,
     isFetching: boolean,
-    followingInProgress: number[]
+    followingInProgress: number[],
+    isAuth: boolean
 }
 
 type MapDispatchToProps = {
@@ -54,6 +55,7 @@ class UsersComponentContainer extends React.Component<UsersComponentContainerTyp
                    totalUserCount={this.props.totalUserCount}
                    followingInProgress={this.props.followingInProgress}
                    setFollow={this.props.setFollow} setUnFollow={this.props.setUnFollow}
+                   isAuth={this.props.isAuth}
             />
         </>
     }
@@ -66,7 +68,8 @@ const mapStateToProps = (state: AppRootStateType): MapStateToPropsType => {
         totalUserCount: state.usersPage.totalUserCount,
         currentPage: state.usersPage.currentPage,
         isFetching: state.usersPage.isFetching,
-        followingInProgress: state.usersPage.followingInProgress
+        followingInProgress: state.usersPage.followingInProgress,
+        isAuth: state.auth.isAuth
     }
 };
 

@@ -3,14 +3,16 @@ import classes from "./Dialogs.module.css";
 import {DialogItem} from "./DialogItem/DialogItem";
 import {MessagesItem} from "./MessagesItem/MessagesItem";
 import { DialogsPageType } from "../../Redux/dialogs-reducer";
+import { Redirect } from "react-router-dom";
 
 type DialogType = {
     dialogsPage: DialogsPageType,
     sendMessage: (text: string) => void,
     newMessageBodyDialog: (text: string) => void,
+    isAuth: boolean,
 }
 
-export const Dialogs:React.FC<DialogType> = ({dialogsPage ,sendMessage,newMessageBodyDialog}) => {
+export const Dialogs:React.FC<DialogType> = ({dialogsPage ,sendMessage,newMessageBodyDialog,isAuth}) => {
     let dialogsElements = dialogsPage.dialogs.map(d => <DialogItem name={d.name} key={d.id} id={d.id}/>)
     let messageElements = dialogsPage.messages.map(m => <MessagesItem message={m.message} key={m.id} id={m.id}/>)
 
@@ -23,6 +25,10 @@ export const Dialogs:React.FC<DialogType> = ({dialogsPage ,sendMessage,newMessag
     const onChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
         newMessageBodyDialog(e.currentTarget.value);
     }
+
+   if(!isAuth){
+      return <Redirect to={"/login"}/>
+   }
 
     return (
         <div className={classes.dialogs}>

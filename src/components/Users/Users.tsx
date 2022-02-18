@@ -2,7 +2,7 @@ import React from "react";
 import s from "./users.module.css";
 import user from "../../assets/images/user.jpg";
 import {UserType} from "../../Redux/users-reducer";
-import {NavLink} from "react-router-dom";
+import {NavLink, Redirect} from "react-router-dom";
 
 type UsersComponentType = {
     totalUserCount: number,
@@ -12,7 +12,8 @@ type UsersComponentType = {
     currentPageHandler: (pageNumber: number) => void,
     followingInProgress: number[],
     setFollow: (userId: number) => void,
-    setUnFollow: (userId: number) => void
+    setUnFollow: (userId: number) => void,
+    isAuth: boolean
 }
 
 export const Users = (props: UsersComponentType) => {
@@ -22,6 +23,10 @@ export const Users = (props: UsersComponentType) => {
     const pages = [];
     for (let i = 1; i <= pagesCount; i++) {
         pages.push(i);
+    }
+
+    if(!props.isAuth){
+        return <Redirect to={"/login"}/>
     }
 
     return <div>
