@@ -13,7 +13,6 @@ type UsersComponentType = {
     followingInProgress: number[],
     setFollow: (userId: number) => void,
     setUnFollow: (userId: number) => void,
-    isAuth: boolean
 }
 
 export const Users = (props: UsersComponentType) => {
@@ -23,10 +22,6 @@ export const Users = (props: UsersComponentType) => {
     const pages = [];
     for (let i = 1; i <= pagesCount; i++) {
         pages.push(i);
-    }
-
-    if(!props.isAuth){
-        return <Redirect to={"/login"}/>
     }
 
     return <div>

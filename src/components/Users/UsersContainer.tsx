@@ -15,6 +15,8 @@ import {Users} from "./Users";
 import {Preloader} from "../common/Preloader/Preloader";
 import {userAPI} from "../../api/api";
 import { Dispatch } from "redux";
+import { Redirect } from "react-router-dom";
+import {WithAuthRedirect} from '../../hoc/withAuthRedirect'
 
 type MapStateToPropsType = {
     users: UserType[],
@@ -23,7 +25,6 @@ type MapStateToPropsType = {
     currentPage: number,
     isFetching: boolean,
     followingInProgress: number[],
-    isAuth: boolean
 }
 
 type MapDispatchToProps = {
@@ -54,13 +55,12 @@ class UsersComponentContainer extends React.Component<UsersComponentContainerTyp
                    currentPageHandler={this.currentPageHandler}
                    totalUserCount={this.props.totalUserCount}
                    followingInProgress={this.props.followingInProgress}
-                   setFollow={this.props.setFollow} setUnFollow={this.props.setUnFollow}
-                   isAuth={this.props.isAuth}
+                   setFollow={this.props.setFollow}
+                   setUnFollow={this.props.setUnFollow}
             />
         </>
     }
 }
-
 const mapStateToProps = (state: AppRootStateType): MapStateToPropsType => {
     return {
         users: state.usersPage.users,
@@ -69,13 +69,12 @@ const mapStateToProps = (state: AppRootStateType): MapStateToPropsType => {
         currentPage: state.usersPage.currentPage,
         isFetching: state.usersPage.isFetching,
         followingInProgress: state.usersPage.followingInProgress,
-        isAuth: state.auth.isAuth
     }
 };
 
-export const UsersContainer = connect<MapStateToPropsType , MapDispatchToProps , {}, AppRootStateType>(mapStateToProps, {
+export const UsersContainer = WithAuthRedirect(connect<MapStateToPropsType , MapDispatchToProps , {}, AppRootStateType>(mapStateToProps, {
     setCurrentPage: setCurrentPageAC,
     getUsers: getUsers,
     setFollow: setFollow,
     setUnFollow: setUnFollow
-})(UsersComponentContainer);
+})(UsersComponentContainer));
