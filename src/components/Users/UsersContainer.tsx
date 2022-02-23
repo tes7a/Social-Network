@@ -14,7 +14,7 @@ import axios from "axios";
 import {Users} from "./Users";
 import {Preloader} from "../common/Preloader/Preloader";
 import {userAPI} from "../../api/api";
-import { Dispatch } from "redux";
+import {compose, Dispatch } from "redux";
 import { Redirect } from "react-router-dom";
 import {WithAuthRedirect} from '../../hoc/withAuthRedirect'
 
@@ -72,9 +72,19 @@ const mapStateToProps = (state: AppRootStateType): MapStateToPropsType => {
     }
 };
 
-export const UsersContainer = WithAuthRedirect(connect<MapStateToPropsType , MapDispatchToProps , {}, AppRootStateType>(mapStateToProps, {
-    setCurrentPage: setCurrentPageAC,
-    getUsers: getUsers,
-    setFollow: setFollow,
-    setUnFollow: setUnFollow
-})(UsersComponentContainer));
+// export const UsersContainer = WithAuthRedirect(connect<MapStateToPropsType , MapDispatchToProps , {}, AppRootStateType>(mapStateToProps, {
+//     setCurrentPage: setCurrentPageAC,
+//     getUsers: getUsers,
+//     setFollow: setFollow,
+//     setUnFollow: setUnFollow
+// })(UsersComponentContainer));
+
+export default compose<React.ComponentType>(
+    connect<MapStateToPropsType , MapDispatchToProps , {}, AppRootStateType>(mapStateToProps, {
+        setCurrentPage: setCurrentPageAC,
+        getUsers: getUsers,
+        setFollow: setFollow,
+        setUnFollow: setUnFollow
+    }),
+    WithAuthRedirect
+)(UsersComponentContainer);

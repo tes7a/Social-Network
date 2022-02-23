@@ -1,10 +1,12 @@
 import axios from 'axios';
 import React from 'react';
+import {ComponentType} from 'react';
 import {connect} from 'react-redux';
 import {AppRootStateType} from '../../Redux/redux-store';
 import {Header} from './Header';
 import {getAuth, setUserData} from '../../Redux/auth-reducer'
 import {authAPI} from '../../api/api';
+import { compose } from 'redux';
 
 class HeaderContainer extends React.Component<HeaderContainerProps> {
     componentDidMount() {
@@ -21,7 +23,11 @@ const mapStateToProps = (state: AppRootStateType): MapStateToPropsType => ({
     login: state.auth.login
 });
 
-export default connect(mapStateToProps, {getAuth})(HeaderContainer);
+//export default connect(mapStateToProps, {getAuth})(HeaderContainer)
+
+export default compose<React.ComponentType>(
+    connect(mapStateToProps, {getAuth})
+)(HeaderContainer);
 
 //types
 type MapStateToPropsType = {
