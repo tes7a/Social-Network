@@ -1,4 +1,5 @@
 import React from "react";
+import { ComponentType } from "react";
 import {Profile} from "./Profile";
 import axios from "axios";
 import {connect} from "react-redux";
@@ -7,6 +8,7 @@ import {getUserProfile, ProfileType, setUserProfileAC} from "../../Redux/profile
 import {Redirect, RouteComponentProps, withRouter} from "react-router-dom";
 import {userAPI} from "../../api/api";
 import {WithAuthRedirect} from '../../hoc/withAuthRedirect'
+import { compose } from "redux";
 
 // UI
 
@@ -36,12 +38,16 @@ const mapStateToProps = (state: AppRootStateType): MapStateToPropsType => {
     }
 };
 
-const withUrlDataContainerComponent = withRouter(ProfileContainer);
+// const withUrlDataContainerComponent = withRouter(ProfileContainer);
 
-export const ProfileConnectContainer = WithAuthRedirect(connect(mapStateToProps, {
-    getUserProfile: getUserProfile,
-})(withUrlDataContainerComponent));
+// export const ProfileConnectContainer = WithAuthRedirect(withRouter(connect(mapStateToProps,
+//     {getUserProfile: getUserProfile,})(ProfileContainer)));
 
+export default compose<React.ComponentType>(
+    connect(mapStateToProps, {getUserProfile: getUserProfile,}),
+    withRouter,
+    WithAuthRedirect
+)(ProfileContainer);
 //type
 
 type ProfileContainerType = {
