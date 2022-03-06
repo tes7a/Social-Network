@@ -1,5 +1,5 @@
 import { Dispatch } from "redux"
-import { userAPI } from "../api/api"
+import {profileAPI, userAPI} from "../api/api"
 
 export type ProfilePageType = {
     messageForNewPost: string,
@@ -31,7 +31,7 @@ export type ProfileType = {
     photos: {
         small: string,
         large: string,
-    }
+    },
 }
 
 
@@ -60,7 +60,8 @@ const initialState: ProfilePageType = {
     posts: [
         {id: 1, likeCount: 15, message: "Hi, how are you?"},
         {id: 2, likeCount: 20, message: "It's my first post"}
-    ]
+    ],
+    status: '',
 }
 
 
@@ -74,6 +75,8 @@ const profileReducer = (state = initialState, action: ActionTypesProfileReducer)
         }
         case "SET-USER-PROFILE":
             return {...state, profile: action.profile}
+        case "profile/GET-STATUS":
+            return {}
         default:
             return state
     }
@@ -83,6 +86,7 @@ export type ActionTypesProfileReducer =
     | AddPostType
     | ChangeTextType
     | SetUserProfileType
+    | ReturnType<typeof getStatusProfile>
 
 export type AddPostType = ReturnType<typeof addPost>;
 
@@ -104,6 +108,9 @@ export const changeText = (newText: string) => {
 
 export type SetUserProfileType = ReturnType<typeof setUserProfileAC>
 
+export const setStatus = (status: string) => ({type: 'profile/SET-STATUS', status}as const);
+export const getStatusProfile = (status: string) => ({type: 'profile/GET-STATUS', status}as const);
+
 export const setUserProfileAC = (profile: ProfileType) => {
     return {
         type: "SET-USER-PROFILE",
@@ -115,8 +122,14 @@ export default profileReducer;
 
 
 export const getUserProfile = (userId: string) => (dispatch: Dispatch) => {
-    userAPI.profile(userId)
+    profileAPI.profile(userId)
         .then(data => {
             dispatch(setUserProfileAC(data.data));
+        })
+}
+export const getStatus = (userId: string) => (dispatch: Dispatch) => {
+    profileAPI.getStatus(userId)
+        .then(data => {
+            dispatch(getStatus(data.status))
         })
 }
