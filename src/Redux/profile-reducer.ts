@@ -5,6 +5,7 @@ export type ProfilePageType = {
     messageForNewPost: string,
     posts: PostsType[],
     profile: ProfileType,
+    status: string
 }
 
 export type PostsType = {
@@ -76,7 +77,7 @@ const profileReducer = (state = initialState, action: ActionTypesProfileReducer)
         case "SET-USER-PROFILE":
             return {...state, profile: action.profile}
         case "profile/GET-STATUS":
-            return {}
+            return {...state, status: action.status}
         default:
             return state
     }
@@ -86,7 +87,7 @@ export type ActionTypesProfileReducer =
     | AddPostType
     | ChangeTextType
     | SetUserProfileType
-    | ReturnType<typeof getStatusProfile>
+    | ReturnType<typeof setStatus>
 
 export type AddPostType = ReturnType<typeof addPost>;
 
@@ -108,8 +109,7 @@ export const changeText = (newText: string) => {
 
 export type SetUserProfileType = ReturnType<typeof setUserProfileAC>
 
-export const setStatus = (status: string) => ({type: 'profile/SET-STATUS', status}as const);
-export const getStatusProfile = (status: string) => ({type: 'profile/GET-STATUS', status}as const);
+export const setStatus = (status: string) => ({type: 'profile/GET-STATUS', status}as const);
 
 export const setUserProfileAC = (profile: ProfileType) => {
     return {
@@ -130,6 +130,14 @@ export const getUserProfile = (userId: string) => (dispatch: Dispatch) => {
 export const getStatus = (userId: string) => (dispatch: Dispatch) => {
     profileAPI.getStatus(userId)
         .then(data => {
-            dispatch(getStatus(data.status))
+            dispatch(setStatus(data.data))
+        })
+}
+export const updateStatus = (status: string) => (dispatch: Dispatch) => {
+    profileAPI.updateStatus(status)
+        .then(data => {
+            if(data.data.resultCode === 0){
+                dispatch(setStatus(status))
+            }
         })
 }

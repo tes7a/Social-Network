@@ -4,7 +4,10 @@ import {Profile} from "./Profile";
 import axios from "axios";
 import {connect} from "react-redux";
 import {AppRootStateType} from "../../Redux/redux-store";
-import {getUserProfile, ProfileType, setUserProfileAC} from "../../Redux/profile-reducer";
+import {
+    getUserProfile,
+    ProfileType,
+} from "../../Redux/profile-reducer";
 import {Redirect, RouteComponentProps, withRouter} from "react-router-dom";
 import {userAPI} from "../../api/api";
 import {WithAuthRedirect} from '../../hoc/withAuthRedirect'
@@ -20,6 +23,7 @@ class ProfileContainer extends React.Component<PropsType> {
             userId = "2";
         }
         this.props.getUserProfile(userId);
+        this.props.getStatus(userId)
 
     }
 
@@ -34,7 +38,8 @@ class ProfileContainer extends React.Component<PropsType> {
 
 const mapStateToProps = (state: AppRootStateType): MapStateToPropsType => {
     return {
-        profile: state.profilePage.profile
+        profile: state.profilePage.profile,
+        status: state.profilePage.status
     }
 };
 
@@ -52,11 +57,14 @@ export default compose<React.ComponentType>(
 
 type ProfileContainerType = {
     profile: ProfileType,
-    getUserProfile: (userId: string) => void
+    getUserProfile: (userId: string) => void,
+    getStatus: (userId: string) => void,
+    updateStatus: (status: string) => void
 }
 
 type MapStateToPropsType = {
     profile: ProfileType,
+    status: string
 }
 
 type PathParamsType = {
