@@ -24,10 +24,10 @@ export const userAPI = {
 }
 
 export const profileAPI = {
-    profile(userId: string){
+    profile(userId: number){
         return instance.get(`profile/${userId}`)
     },
-    getStatus(userId: string){
+    getStatus(userId: number){
         return instance.get(`profile/status/${userId}`)
     },
     updateStatus(status: string){

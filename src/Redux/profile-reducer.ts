@@ -121,13 +121,13 @@ export const setUserProfileAC = (profile: ProfileType) => {
 export default profileReducer;
 
 
-export const getUserProfile = (userId: string) => (dispatch: Dispatch) => {
+export const getUserProfile = (userId: number) => (dispatch: Dispatch) => {
     profileAPI.profile(userId)
         .then(data => {
             dispatch(setUserProfileAC(data.data));
         })
 }
-export const getStatus = (userId: string) => (dispatch: Dispatch) => {
+export const getStatus = (userId: number) => (dispatch: Dispatch) => {
     profileAPI.getStatus(userId)
         .then(data => {
             dispatch(setStatus(data.data))

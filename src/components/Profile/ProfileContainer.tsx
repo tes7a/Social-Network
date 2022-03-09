@@ -18,9 +18,9 @@ import { compose } from "redux";
 class ProfileContainer extends React.Component<PropsType> {
 
     componentDidMount() {
-        let userId = this.props.match.params.userId
+        let userId = Number(this.props.match.params.userId)
         if (!userId) {
-            userId = "2";
+            userId = 20643;
         }
         this.props.getUserProfile(userId);
         this.props.getStatus(userId)
@@ -61,8 +61,8 @@ export default compose<React.ComponentType>(
 
 type ProfileContainerType = {
     profile: ProfileType,
-    getUserProfile: (userId: string) => void,
-    getStatus: (userId: string) => void,
+    getUserProfile: (userId: number) => void,
+    getStatus: (userId: number) => void,
     updateStatus: (status: string) => void
 }
 
