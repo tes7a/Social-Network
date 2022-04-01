@@ -1,11 +1,9 @@
 import React from "react";
-import { ComponentType } from "react";
-import {DialogsPageType, newMessageBodyDialog, sendMessage} from "../../Redux/dialogs-reducer";
+import {DialogsPageType, sendMessage} from "../../Redux/dialogs-reducer";
 import {Dialogs} from "./Dialogs";
 import {compose, Dispatch} from "redux";
 import {AppRootStateType} from "../../Redux/redux-store";
 import {connect} from "react-redux";
-import { Redirect } from "react-router-dom";
 import {WithAuthRedirect} from '../../hoc/withAuthRedirect'
 
 type MapStateToPropsType = {
@@ -13,11 +11,10 @@ type MapStateToPropsType = {
 }
 
 type MapDispatchToPropsType = {
-    newMessageBodyDialog: (text: string) => void,
     sendMessage: (text: string) => void,
 }
 
-type AuthRedirect = MapDispatchToPropsType & MapStateToPropsType
+//type AuthRedirect = MapDispatchToPropsType & MapStateToPropsType
 
 const mapStateToProps = (state: AppRootStateType): MapStateToPropsType => {
     return {
@@ -27,9 +24,6 @@ const mapStateToProps = (state: AppRootStateType): MapStateToPropsType => {
 
 const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
     return {
-        newMessageBodyDialog: (text: string) => {
-            dispatch(newMessageBodyDialog(text))
-        },
         sendMessage: (text: string) => {
             dispatch(sendMessage(text))
         },

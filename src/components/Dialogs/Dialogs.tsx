@@ -2,8 +2,8 @@ import React, {ChangeEvent} from "react";
 import classes from "./Dialogs.module.css";
 import {DialogItem} from "./DialogItem/DialogItem";
 import {MessagesItem} from "./MessagesItem/MessagesItem";
-import { DialogsPageType } from "../../Redux/dialogs-reducer";
-import { Redirect } from "react-router-dom";
+import {DialogsPageType} from "../../Redux/dialogs-reducer";
+import {Field, InjectedFormProps, reduxForm} from "redux-form";
 
 type DialogType = {
     dialogsPage: DialogsPageType,
@@ -11,18 +11,12 @@ type DialogType = {
     newMessageBodyDialog: (text: string) => void,
 }
 
-export const Dialogs:React.FC<DialogType> = ({dialogsPage ,sendMessage,newMessageBodyDialog,}) => {
+export const Dialogs: React.FC<DialogType> = ({dialogsPage, sendMessage, newMessageBodyDialog,}) => {
     let dialogsElements = dialogsPage.dialogs.map(d => <DialogItem name={d.name} key={d.id} id={d.id}/>)
     let messageElements = dialogsPage.messages.map(m => <MessagesItem message={m.message} key={m.id} id={m.id}/>)
 
-    const newDialog = dialogsPage.newMessageBody;
-
-    const onSendMessageClick = () => {
-        sendMessage(newDialog);
-        newMessageBodyDialog('');
-    }
-    const onChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        newMessageBodyDialog(e.currentTarget.value);
+    const addNewMassage = (value: AddMassageFormType) => {
+        sendMessage(value.newMassageBody);
     }
 
     return (
@@ -33,10 +27,26 @@ export const Dialogs:React.FC<DialogType> = ({dialogsPage ,sendMessage,newMessag
             <div className={classes.massages}>
                 {messageElements}
             </div>
-            <div>
-                <div><textarea value={newDialog} onChange={onChangeHandler}>x</textarea></div>
-                <div><button onClick={onSendMessageClick}>Send</button></div>
-            </div>
+            <DialogReduxForm onSubmit={addNewMassage}/>
         </div>
     )
 }
+
+type AddMassageFormType = {
+    newMassageBody: string
+}
+
+const AddMassageForm: React.FC<InjectedFormProps<AddMassageFormType>> = (props) => {
+    return (
+        <form onSubmit={props.handleSubmit}>
+            <div>
+                <Field component={"textarea"} name={"newMassageBody"}/>
+            </div>
+            <div>
+                <button>Send</button>
+            </div>
+        </form>
+    )
+}
+
+const DialogReduxForm = reduxForm<AddMassageFormType>({form: "dialog"})(AddMassageForm)

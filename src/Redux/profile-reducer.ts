@@ -1,8 +1,7 @@
 import { Dispatch } from "redux"
-import {profileAPI, userAPI} from "../api/api"
+import {profileAPI} from "../api/api"
 
 export type ProfilePageType = {
-    messageForNewPost: string,
     posts: PostsType[],
     profile: ProfileType,
     status: string
@@ -57,7 +56,6 @@ const initialState: ProfilePageType = {
             large: ''
         }
     },
-    messageForNewPost: '',
     posts: [
         {id: 1, likeCount: 15, message: "Hi, how are you?"},
         {id: 2, likeCount: 20, message: "It's my first post"}
@@ -71,9 +69,6 @@ const profileReducer = (state = initialState, action: ActionTypesProfileReducer)
         case "ADD-POST": {
             return {...state, posts: [...state.posts, { id: new Date().getTime(), message: action.postMessage, likeCount: 0}]};
         }
-        case "CHANGE-TEXT": {
-            return {...state, messageForNewPost: action.newText};
-        }
         case "SET-USER-PROFILE":
             return {...state, profile: action.profile}
         case "profile/GET-STATUS":
@@ -85,7 +80,6 @@ const profileReducer = (state = initialState, action: ActionTypesProfileReducer)
 
 export type ActionTypesProfileReducer =
     | AddPostType
-    | ChangeTextType
     | SetUserProfileType
     | ReturnType<typeof setStatus>
 
@@ -95,15 +89,6 @@ export const addPost = (postMessage: string) => {
     return {
         type: "ADD-POST",
         postMessage,
-    } as const
-};
-
-export type ChangeTextType = ReturnType<typeof changeText>;
-
-export const changeText = (newText: string) => {
-    return {
-        type: "CHANGE-TEXT",
-        newText,
     } as const
 };
 

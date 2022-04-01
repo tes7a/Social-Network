@@ -1,11 +1,8 @@
-import axios from 'axios';
 import React from 'react';
-import {ComponentType} from 'react';
 import {connect} from 'react-redux';
 import {AppRootStateType} from '../../Redux/redux-store';
 import {Header} from './Header';
-import {getAuth, setUserData} from '../../Redux/auth-reducer'
-import {authAPI} from '../../api/api';
+import {getAuth} from '../../Redux/auth-reducer'
 import { compose } from 'redux';
 
 class HeaderContainer extends React.Component<HeaderContainerProps> {

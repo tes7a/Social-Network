@@ -1,7 +1,6 @@
 export type DialogsPageType = {
     dialogs: TypeDialog[],
     messages: MessagesType[],
-    newMessageBody: string,
 }
 
 export type TypeDialog = {
@@ -31,32 +30,19 @@ const initialState: DialogsPageType = {
         {id: 4, message: "Gl"},
         {id: 5, message: "Thx"}
     ],
-    newMessageBody: '',
 }
 
 const dialogsReducer = (state: DialogsPageType = initialState, action: ActionTypesDialogsReducer): DialogsPageType => {
     switch (action.type) {
-        case "NEW-MESSAGE-BODY": {
-            return {...state, newMessageBody: action.text};
-        }
         case "SEND-MESSAGE": {
-            return {...state, newMessageBody: '', messages: [...state.messages,{id:new Date().getTime(), message: state.newMessageBody}]};
+            return {...state, messages: [...state.messages,{id:new Date().getTime(), message: action.newMessage}]};
         }
         default:
             return state
     }
 }
 
-export type ActionTypesDialogsReducer = NewMessageBodyDialogType | SendMessageType
-
-export type NewMessageBodyDialogType = ReturnType<typeof newMessageBodyDialog>;
-
-export const newMessageBodyDialog = (text: string) => {
-    return {
-        type: "NEW-MESSAGE-BODY",
-        text,
-    } as const
-};
+export type ActionTypesDialogsReducer = SendMessageType
 
 export type SendMessageType = ReturnType<typeof sendMessage>;
 
