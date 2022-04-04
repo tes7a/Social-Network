@@ -4,6 +4,8 @@ import {DialogItem} from "./DialogItem/DialogItem";
 import {MessagesItem} from "./MessagesItem/MessagesItem";
 import {DialogsPageType} from "../../Redux/dialogs-reducer";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
+import {TextArea} from "../common/FormsControl/FormControl";
+import {maxlength, requiredField} from "../../utils/validators/validators";
 
 type DialogType = {
     dialogsPage: DialogsPageType,
@@ -36,11 +38,13 @@ type AddMassageFormType = {
     newMassageBody: string
 }
 
+const length =  maxlength(50);
+
 const AddMassageForm: React.FC<InjectedFormProps<AddMassageFormType>> = (props) => {
     return (
         <form onSubmit={props.handleSubmit}>
             <div>
-                <Field component={"textarea"} name={"newMassageBody"}/>
+                <Field component={TextArea} name={"newMassageBody"} validate={[requiredField,length]}/>
             </div>
             <div>
                 <button>Send</button>
