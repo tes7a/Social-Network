@@ -19,6 +19,8 @@ export const authReducer = (state = intialState, action: actionsType): intialSta
     switch (action.type) {
         case "auth/SET-USER-DATA":
             return {...state, ...action.data, isAuth: true}
+        case "auth/SET-LOGIN":
+            return {...state, ...action.data, isAuth: true}
         default:
             return state
     }
@@ -28,8 +30,13 @@ export const authReducer = (state = intialState, action: actionsType): intialSta
 export const setUserData = (id: number, email: string, login: string) =>
     ({type: 'auth/SET-USER-DATA', data: {id, email, login}} as const)
 
+export const login = (password: string, email: string, rememberMe: boolean) =>
+    ({type: "auth/SET-LOGIN", data: {password, email, rememberMe}} as const)
+
 //types
-type actionsType = ReturnType<typeof setUserData>
+type actionsType =
+    ReturnType<typeof setUserData>
+    | ReturnType<typeof login>
 
 export const getAuth = () => (dispatch: Dispatch) => {
     authAPI.me()
@@ -40,3 +47,15 @@ export const getAuth = () => (dispatch: Dispatch) => {
             }
         })
 }
+
+export const authLogin = (password: string, email: string, rememberMe: boolean) => (dispatch: Dispatch) => {
+    authAPI.login(email, password, rememberMe)
+        .then(res => {
+            if (res.data.resultCode === 0) {
+                let {id, login, email} = res.data.data;
+                dispatch(login(id, login, email));
+            }
+        })
+}
+
+
