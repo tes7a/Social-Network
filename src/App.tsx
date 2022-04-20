@@ -10,7 +10,7 @@ import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import UsersContainer from "./components/Users/UsersContainer";
 import ProfileConnectContainer from "./components/Profile/ProfileContainer";
 import  HeaderContainer  from "./components/Header/HeaderContainer";
-import { Login } from "./components/login/Login";
+import { LoginContainer } from "./components/login/Login";
 
 const App= () => {
 
@@ -26,7 +26,7 @@ const App= () => {
                     <Route path="/music" render={() => <Music/>}/>
                     <Route path="/settings" render={() => <Settings/>}/>
                     <Route path="/users" render={() => <UsersContainer/>}/>
-                    <Route path="/login" render={() => <Login/>}/>
+                    <Route path="/login" render={() => <LoginContainer/>}/>
                 </div>
             </div>
         </BrowserRouter>
