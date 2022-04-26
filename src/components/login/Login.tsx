@@ -1,11 +1,12 @@
-import React from 'react';
+import React from "react";
 import {reduxForm, Field, InjectedFormProps} from "redux-form";
-import { Input } from '../common/FormsControl/FormControl';
+import { Input } from "../common/FormsControl/FormControl";
 import {maxlength, requiredField} from "../../utils/validators/validators";
-import { connect } from 'react-redux';
-import { authLogin } from '../../Redux/auth-reducer';
-import { AppRootStateType } from '../../Redux/redux-store';
-import { Redirect } from 'react-router-dom';
+import { connect } from "react-redux";
+import { authLogin } from "../../Redux/auth-reducer";
+import { AppRootStateType } from "../../Redux/redux-store";
+import { Redirect } from "react-router-dom";
+import s from "./Login.module.css";
 
 type LoginProps = {
     id: number,
@@ -61,6 +62,10 @@ const LoginForm: React.FC<InjectedFormProps<FormData>> = (props) => {
                 <div>
                     <Field type={"checkbox"} name={"rememberMe"} component={Input}/> remember me
                 </div>
+                {props.error && <div className={s.error}>
+                    {props.error}
+                </div>
+                }
                 <div>
                     <button>Login</button>
                 </div>

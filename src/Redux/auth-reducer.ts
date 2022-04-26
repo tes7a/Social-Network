@@ -1,4 +1,5 @@
 import {Dispatch} from "redux"
+import { stopSubmit } from "redux-form"
 import { ThunkDispatch } from "redux-thunk"
 import {authAPI} from "../api/api"
 import { AppRootStateType } from "./redux-store"
@@ -31,7 +32,7 @@ export const setUserData = (id: number, email: string, login: string, isAuth: bo
     ({type: 'auth/SET-USER-DATA', payload: {id, email, login, isAuth}} as const)
 
 //types
-type actionsType = ReturnType<typeof setUserData>
+type actionsType = ReturnType<typeof setUserData> | ReturnType<typeof stopSubmit>
 
 export const getAuth = () => (dispatch: ThunkDispatch<AppRootStateType, unknown, actionsType>) => {
     authAPI.me()
@@ -48,6 +49,9 @@ export const authLogin = (password: string, email: string, rememberMe: boolean) 
         .then(res => {
             if (res.data.resultCode === 0) {
                 dispatch(getAuth());
+            }else{
+                let massage = res.data.messages.length > 0 ? res.data.messages[0] : "Some Error";
+                dispatch(stopSubmit("login", {_error: massage}))
             }
         })
 }
