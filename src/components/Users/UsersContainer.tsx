@@ -17,6 +17,8 @@ import {userAPI} from "../../api/api";
 import {compose, Dispatch } from "redux";
 import { Redirect } from "react-router-dom";
 import {WithAuthRedirect} from '../../hoc/withAuthRedirect'
+import {getCurrentPageState, getFollowingInProgressState, getIsFetchingState, getPageSizeState,
+    getTotalCountState, getUsersState } from "../../Redux/users-selectors";
 
 type MapStateToPropsType = {
     users: UserType[],
@@ -61,23 +63,27 @@ class UsersComponentContainer extends React.Component<UsersComponentContainerTyp
         </>
     }
 }
+// const mapStateToProps = (state: AppRootStateType): MapStateToPropsType => {
+//     return {
+//         users: state.usersPage.users,
+//         pageSize: state.usersPage.pageSize,
+//         totalUserCount: state.usersPage.totalUserCount,
+//         currentPage: state.usersPage.currentPage,
+//         isFetching: state.usersPage.isFetching,
+//         followingInProgress: state.usersPage.followingInProgress,
+//     }
+// };
+
 const mapStateToProps = (state: AppRootStateType): MapStateToPropsType => {
     return {
-        users: state.usersPage.users,
-        pageSize: state.usersPage.pageSize,
-        totalUserCount: state.usersPage.totalUserCount,
-        currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching,
-        followingInProgress: state.usersPage.followingInProgress,
+        users: getUsersState(state),
+        pageSize: getPageSizeState(state),
+        totalUserCount: getTotalCountState(state),
+        currentPage: getCurrentPageState(state),
+        isFetching: getIsFetchingState(state),
+        followingInProgress: getFollowingInProgressState(state),
     }
 };
-
-// export const UsersContainer = WithAuthRedirect(connect<MapStateToPropsType , MapDispatchToProps , {}, AppRootStateType>(mapStateToProps, {
-//     setCurrentPage: setCurrentPageAC,
-//     getUsers: getUsers,
-//     setFollow: setFollow,
-//     setUnFollow: setUnFollow
-// })(UsersComponentContainer));
 
 export default compose<React.ComponentType>(
     connect<MapStateToPropsType , MapDispatchToProps , {}, AppRootStateType>(mapStateToProps, {
