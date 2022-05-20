@@ -17,8 +17,10 @@ import {userAPI} from "../../api/api";
 import {compose, Dispatch } from "redux";
 import { Redirect } from "react-router-dom";
 import {WithAuthRedirect} from '../../hoc/withAuthRedirect'
-import {getCurrentPageState, getFollowingInProgressState, getIsFetchingState, getPageSizeState,
-    getTotalCountState, getUsersState } from "../../Redux/users-selectors";
+import {
+    getCurrentPageState, getFollowingInProgressState, getIsFetchingState, getPageSizeState,
+    getTotalCountState, getUsersState, getUsersSuperSelector
+} from "../../Redux/users-selectors";
 
 type MapStateToPropsType = {
     users: UserType[],
@@ -76,7 +78,7 @@ class UsersComponentContainer extends React.Component<UsersComponentContainerTyp
 
 const mapStateToProps = (state: AppRootStateType): MapStateToPropsType => {
     return {
-        users: getUsersState(state),
+        users: getUsersSuperSelector(state),
         pageSize: getPageSizeState(state),
         totalUserCount: getTotalCountState(state),
         currentPage: getCurrentPageState(state),
