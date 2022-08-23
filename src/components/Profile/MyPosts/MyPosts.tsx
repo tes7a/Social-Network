@@ -12,7 +12,7 @@ export type MyPostsType = {
     addPostHandler: (message: string) => void,
 }
 
-export const MyPosts:React.FC<MyPostsType> = ({posts, addPostHandler}) => {
+export const MyPosts:React.FC<MyPostsType> = React.memo(({posts, addPostHandler}) => {
     const postElem = posts.map(p => <Posts massage={p.message} key={p.id} like={p.likeCount} id={p.id}/>)
 
     const addPost = (value: MyPostFormType) => {
@@ -28,7 +28,7 @@ export const MyPosts:React.FC<MyPostsType> = ({posts, addPostHandler}) => {
             </div>
         </div>
     )
-}
+})
 
 type MyPostFormType = {
     MyPosts: string

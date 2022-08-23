@@ -9,9 +9,7 @@ const renderTree = (state: Store<AppRootStateType, any>) => {
 
     ReactDOM.render(
         <Provider store={state}>
-            <React.StrictMode>
                 <App/>
-            </React.StrictMode>
         </Provider>,
         document.getElementById('root')
     );

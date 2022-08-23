@@ -23,7 +23,6 @@ const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
     return {
         addPostHandler: (message: string) => {
             dispatch(addPost(message));
-
         },
     }
 }

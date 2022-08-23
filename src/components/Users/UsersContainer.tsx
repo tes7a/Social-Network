@@ -41,7 +41,6 @@ type MapDispatchToProps = {
 type UsersComponentContainerType = MapDispatchToProps & MapStateToPropsType
 
 class UsersComponentContainer extends React.Component<UsersComponentContainerType> {
-
     componentDidMount() {
         this.props.getUsers(this.props.currentPage, this.props.pageSize)
     };

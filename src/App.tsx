@@ -23,7 +23,6 @@ class App extends React.Component<HeaderContainerProps> {
 
     render() {
         if(!this.props.initialized){
-            console.log('loader')
             return <Preloader/>
         }
 
