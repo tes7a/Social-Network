@@ -1,11 +1,9 @@
-import React, {ChangeEvent} from "react";
-import classes from "./Dialogs.module.css";
-import {DialogItem} from "./DialogItem/DialogItem";
-import {MessagesItem} from "./MessagesItem/MessagesItem";
-import {DialogsPageType} from "../../Redux/dialogs-reducer";
-import {Field, InjectedFormProps, reduxForm} from "redux-form";
-import {TextArea} from "../common/FormsControl/FormControl";
-import {maxlength, requiredField} from "../../utils/validators/validators";
+import React from 'react';
+import classes from './Dialogs.module.css';
+import { DialogItem } from './DialogItem/DialogItem';
+import { MessagesItem } from './MessagesItem/MessagesItem';
+import { DialogsPageType } from '../../Redux/dialogs-reducer';
+import { DialogReduxForm } from './MassageForm/MessageFrom';
 
 type DialogType = {
     dialogsPage: DialogsPageType,
@@ -13,44 +11,31 @@ type DialogType = {
     newMessageBodyDialog: (text: string) => void,
 }
 
-export const Dialogs: React.FC<DialogType> = ({dialogsPage, sendMessage, newMessageBodyDialog,}) => {
-    let dialogsElements = dialogsPage.dialogs.map(d => <DialogItem name={d.name} key={d.id} id={d.id}/>)
-    let messageElements = dialogsPage.messages.map(m => <MessagesItem message={m.message} key={m.id} id={m.id}/>)
-
-    const addNewMassage = (value: AddMassageFormType) => {
-        sendMessage(value.newMassageBody);
-    }
-
-    return (
-        <div className={classes.dialogs}>
-            <div className={classes.dialogsItems}>
-                {dialogsElements}
-            </div>
-            <div className={classes.massages}>
-                {messageElements}
-            </div>
-            <DialogReduxForm onSubmit={addNewMassage}/>
-        </div>
-    )
-}
-
-type AddMassageFormType = {
+export type AddMassageFormType = {
     newMassageBody: string
 }
 
-const length =  maxlength(50);
+export const Dialogs: React.FC<DialogType> = (
+    { dialogsPage, sendMessage }
+    ) => {
 
-const AddMassageForm: React.FC<InjectedFormProps<AddMassageFormType>> = (props) => {
+    let dialogsElements = dialogsPage.dialogs.map(d => <DialogItem name={ d.name } key={ d.id } id={ d.id }/>);
+
+    let messageElements = dialogsPage.messages.map(m => <MessagesItem message={ m.message } key={ m.id } id={ m.id }/>);
+
+    const addNewMassage = (value: AddMassageFormType) => {
+        sendMessage(value.newMassageBody);
+    };
+
     return (
-        <form onSubmit={props.handleSubmit}>
-            <div>
-                <Field component={TextArea} name={"newMassageBody"} validate={[requiredField,length]}/>
+        <div className={ classes.dialogs }>
+            <div className={ classes.dialogsItems }>
+                { dialogsElements }
             </div>
-            <div>
-                <button>Send</button>
+            <div className={ classes.massages }>
+                { messageElements }
             </div>
-        </form>
+            <DialogReduxForm onSubmit={ addNewMassage }/>
+        </div>
     )
 }
-
-const DialogReduxForm = reduxForm<AddMassageFormType>({form: "dialog"})(AddMassageForm)

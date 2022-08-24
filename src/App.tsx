@@ -9,7 +9,7 @@ import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import UsersContainer from "./components/Users/UsersContainer";
 import ProfileConnectContainer from "./components/Profile/ProfileContainer";
 import  HeaderContainer  from "./components/Header/HeaderContainer";
-import { LoginContainer } from "./components/login/Login";
+import { LoginContainer } from "./components/Login/Login";
 import { AppRootStateType } from "./Redux/redux-store";
 import { compose } from "redux";
 import { connect } from "react-redux";

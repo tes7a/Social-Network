@@ -1,9 +1,8 @@
 import React from "react";
-import {UserType} from "../../Redux/users-reducer";
 import './users.module.css'
 import axios from "axios";
 import user from '../../assets/images/user.jpg';
-import { userAPI } from "../../api/api";
+import { userAPI, UserType } from "../../api/api";
 
 type UsersType = {
     users: UserType[],

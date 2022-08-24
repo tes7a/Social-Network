@@ -8,12 +8,11 @@ import {
     setUsersAC,
     togleIsFollowingProgress,
     unFollowAC,
-    UserType
 } from "../../Redux/users-reducer";
 import axios from "axios";
 import {Users} from "./Users";
 import {Preloader} from "../common/Preloader/Preloader";
-import {userAPI} from "../../api/api";
+import {userAPI, UserType} from "../../api/api";
 import {compose, Dispatch } from "redux";
 import { Redirect } from "react-router-dom";
 import {WithAuthRedirect} from '../../hoc/withAuthRedirect'

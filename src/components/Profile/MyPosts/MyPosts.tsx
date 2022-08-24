@@ -4,7 +4,7 @@ import classes from './MyPosts.module.css';
 import Posts from "./Posts/Posts";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {maxlength, requiredField} from "../../../utils/validators/validators";
-import {TextArea} from "../../common/FormsControl/FormControl";
+import { TextArea } from "../../common/FormsControl/TextArea";
 
 
 export type MyPostsType = {

@@ -1,10 +1,17 @@
-import React, { DetailedHTMLProps, TextareaHTMLAttributes } from "react";
-import s from "./FormControl.module.css";
+import React, { HTMLInputTypeAttribute } from 'react';
+import { WrappedFieldInputProps, WrappedFieldMetaProps } from 'redux-form';
+import s from './FormControl.module.css';
 
-type defaultTextAreaType = any
-    //DetailedHTMLProps<TextareaHTMLAttributes<HTMLTextAreaElement>, HTMLTextAreaElement>
+type FormsControls = {
+    input: WrappedFieldInputProps,
+    meta: WrappedFieldMetaProps,
+    placeholder?: string,
+    type?: HTMLInputTypeAttribute,
+    children: React.ReactNode,
+    autoFocus?: boolean,
+}
 
-export const FromControl: React.FC<any> = (
+export const FromControl: React.FC<FormsControls> = (
     {
         input,
         meta,
@@ -12,37 +19,15 @@ export const FromControl: React.FC<any> = (
         ...restprops
     }
 ) => {
+
     const hasError = meta.touched && meta.error
 
     return (
-        <div className={s.formControl + " " + (hasError? s.error : " ")}>
+        <div className={ s.formControl + " " + (hasError? s.error : " ") }>
             <div>
-                {children}
+                { children }
             </div>
-            {hasError && <span>{meta.error}</span>}
+            {hasError && <span>{ meta.error }</span>}
         </div>
     )
 }
-
-export const TextArea = (props: any) => {
-    const { input, meta, child, ...restprops} = props
-    return <FromControl {...props}><textarea {...input} {...restprops}/></FromControl>
-}
-
-export const Input = (props: any) => {
-    const { input, meta, child, ...restprops} = props
-    return <FromControl {...props}><input {...input} {...restprops}/></FromControl>
-}
-
-// export const Input: React.FC<any> = ({ input, meta, ...restprops }) => {
-//     const hasError = meta.touched && meta.error
-//
-//     return (
-//         <div className={s.formControl + " " + (hasError? s.error : " ")}>
-//             <div>
-//                 <input {...input} {...restprops}/>
-//             </div>
-//             {hasError && <span>{meta.error}</span>}
-//         </div>
-//     )
-// }

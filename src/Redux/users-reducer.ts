@@ -1,22 +1,22 @@
 import { Dispatch } from "redux";
-import { userAPI } from "../api/api";
+import { userAPI, UserType } from "../api/api";
 
 export type LocationType = {
     city: string,
     country: string,
 }
 
-export type UserType = {
-    id: number,
-    followed: boolean,
-    name: string,
-    status: string,
-    location: LocationType,
-    photos: {
-        small: string
-        large: string
-    }
-}
+// export type UserType = {
+//     id: number,
+//     followed: boolean,
+//     name: string,
+//     status: string,
+//     location: LocationType,
+//     photos: {
+//         small: string
+//         large: string
+//     }
+// }
 
 export type InitialState = {
     users: UserType[],

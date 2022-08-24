@@ -1,8 +1,8 @@
 import React from "react";
 import s from "./users.module.css";
 import user from "../../assets/images/user.jpg";
-import {UserType} from "../../Redux/users-reducer";
 import {NavLink, Redirect} from "react-router-dom";
+import { UserType } from "../../api/api";
 
 type UsersComponentType = {
     totalUserCount: number,
