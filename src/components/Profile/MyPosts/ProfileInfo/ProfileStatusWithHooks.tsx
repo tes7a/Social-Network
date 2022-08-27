@@ -1,8 +1,8 @@
-import React, {ChangeEvent, useState} from "react";
+import React, {ChangeEvent, useState} from 'react';
 
 type ProfileStatusType = {
     status: string,
-    updateStatus: (status: string) => void
+    updateStatus: (status: string) => void,
 }
 
 export const ProfileStatusWithHooks = (props: ProfileStatusType) => {
@@ -26,13 +26,13 @@ export const ProfileStatusWithHooks = (props: ProfileStatusType) => {
         <div>
             {!editMode &&
                 <div>
-                    <span onDoubleClick={activateMode}>{props.status || "---"}</span>
+                    <span onDoubleClick={ activateMode }>{ props.status || "---" }</span>
                 </div>
             }
             {editMode &&
                 <div>
-                    <input onChange={onStatusChange} autoFocus={true} onBlur={deactivateMode}
-                           value={status}/>
+                    <input onChange={ onStatusChange } autoFocus={ true } onBlur={ deactivateMode }
+                           value={ status }/>
                 </div>
             }
         </div>

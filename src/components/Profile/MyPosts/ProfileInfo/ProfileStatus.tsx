@@ -1,19 +1,19 @@
-import React, {ChangeEvent, LegacyRef} from "react";
+import React, { ChangeEvent } from 'react';
 
 type ProfileStatusType = {
     status: string,
-    updateStatus: (status: string) => void
+    updateStatus: (status: string) => void,
 }
 
 type stateType = {
     editMode: boolean,
-    status: string
+    status: string,
 }
 
 export class ProfileStatus extends React.Component<ProfileStatusType> {
     state: stateType = {
         editMode: false,
-        status: this.props.status
+        status: this.props.status,
     }
 
     activateMode = () => {
@@ -46,13 +46,13 @@ export class ProfileStatus extends React.Component<ProfileStatusType> {
             <div>
                 {!this.state.editMode &&
                 <div>
-                    <span onDoubleClick={this.activateMode}>{this.props.status || "---"}</span>
+                    <span onDoubleClick={this.activateMode}>{ this.props.status || "---" }</span>
                 </div>
                 }
                 {this.state.editMode &&
                 <div>
-                    <input onChange={this.statusChange} autoFocus={true} onBlur={this.deactivateMode}
-                           value={this.state.status}/>
+                    <input onChange={ this.statusChange } autoFocus={ true } onBlur={ this.deactivateMode }
+                           value={ this.state.status }/>
                 </div>
                 }
             </div>

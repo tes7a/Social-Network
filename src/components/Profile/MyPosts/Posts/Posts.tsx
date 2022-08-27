@@ -1,19 +1,19 @@
-import React from "react";
-import classes from './Posts.module.css';
+import React from 'react';
+import s from './Posts.module.css';
 
 type PostsMassageLike = {
-    massage : string
-    like : number
-    id: number
+    massage : string,
+    like : number,
+    id: number,
 }
 
-const Posts = (props:PostsMassageLike) => {
+const Posts: React.FC<PostsMassageLike> = ({ like, massage }) => {
     return(
-            <div className={classes.item}>
+            <div className={ s.item }>
                 <img src="https://cspromogame.ru//storage/upload_images/avatars/3884.jpg"/>
-                {props.massage}
+                {massage}
                 <div>
-                <span>Like {props.like} </span>
+                <span>Like {like} </span>
                 </div>
             </div>
     )
