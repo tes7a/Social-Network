@@ -1,12 +1,12 @@
-import {applyMiddleware, combineReducers, createStore, Store} from "redux";
-import profileReducer from "./profile-reducer";
-import dialogsReducer from "./dialogs-reducer";
-import sidebarReducer from "./sidebar-reducer";
-import {userReducer} from "./users-reducer";
-import { authReducer } from "./auth-reducer";
-import {reducer as formReducer} from "redux-form";
-import thunk from "redux-thunk";
-import { appReducer } from "./app-reducer";
+import { applyMiddleware, combineReducers, createStore, Store } from 'redux';
+import { userReducer } from './users-reducer';
+import { authReducer } from './auth-reducer';
+import { reducer as formReducer } from 'redux-form';
+import thunk from 'redux-thunk';
+import { appReducer } from './app-reducer';
+import { dialogsReducer } from './dialogs-reducer';
+import { profileReducer } from './profile-reducer';
+import { sidebarReducer } from './sidebar-reducer';
 
 const rootReducer = combineReducers({
     profilePage: profileReducer,

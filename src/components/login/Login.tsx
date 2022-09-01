@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { authLogin } from '../../Redux/auth-reducer';
 import { AppRootStateType } from '../../Redux/redux-store';
-import { Redirect } from "react-router-dom";
+import { Redirect } from 'react-router-dom';
 import { LoginReduxForm } from './LoginFrom/LoginForm';
 
 type LoginProps = {
@@ -23,21 +23,21 @@ type MapStateToPropsType = {
     login: string,
 }
 
-export const Login = (props: LoginProps) => {
+export const Login: React.FC<LoginProps> = ({ authLogin, isAuth }) => {
     const onSubmit = (formData: any) => {
         console.log(formData);
         
-        props.authLogin(formData.password,formData.email,formData.rememberMe);
+        authLogin(formData.password,formData.email,formData.rememberMe);
     }
 
-    if(props.isAuth){
-        return <Redirect to={'/profile'}/>
+    if(isAuth){
+        return <Redirect to={ '/profile' }/>
     }
 
     return (
         <div>
             <h1>Login</h1>
-            <LoginReduxForm onSubmit={onSubmit}/>
+            <LoginReduxForm onSubmit={  onSubmit }/>
         </div>
     )
 }

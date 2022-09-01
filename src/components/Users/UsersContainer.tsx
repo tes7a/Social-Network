@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { AppRootStateType } from '../../Redux/redux-store';
 import {
     getUsers,
-    setCurrentPageAC, setFollow, setUnFollow,
+    setCurrentPage, setFollow, setUnFollow,
 } from '../../Redux/users-reducer';
 import { Users } from './Users';
 import { Preloader } from '../common/Preloader/Preloader';
@@ -71,7 +71,7 @@ const mapStateToProps = (state: AppRootStateType): MapStateToPropsType => {
 
 export default compose<React.ComponentType>(
     connect<MapStateToPropsType , MapDispatchToProps , {}, AppRootStateType>(mapStateToProps, {
-        setCurrentPage: setCurrentPageAC,
+        setCurrentPage: setCurrentPage,
         getUsers: getUsers,
         setFollow: setFollow,
         setUnFollow: setUnFollow

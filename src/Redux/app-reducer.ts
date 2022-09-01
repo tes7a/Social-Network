@@ -1,41 +1,37 @@
-import {Dispatch} from "redux"
-import {stopSubmit} from "redux-form"
-import {ThunkDispatch} from "redux-thunk"
-import {authAPI} from "../api/api"
-import {getAuth} from "./auth-reducer"
-import {AppRootStateType} from "./redux-store"
+import { ThunkDispatch } from 'redux-thunk';
+import { getAuth } from './auth-reducer';
+import { AppRootStateType } from './redux-store';
 
-export type intialStateType = {
-    intialized: boolean
+//types
+export type initialStateType = {
+    initialized: boolean,
 }
 
-const intialState: intialStateType = {
-    intialized: false
+type actionsType =
+    | ReturnType<typeof setInitialized>
+
+const initialState: initialStateType = {
+    initialized: false,
 }
 
-export const appReducer = (state = intialState, action: actionsType): intialStateType => {
+export const appReducer = (state = initialState, action: actionsType): initialStateType => {
     switch (action.type) {
-        case "app/SET-INTIALIZED":
-            return {...state, intialized: action.value}
+        case "app/SET-INITIALIZED":
+            return { ...state, initialized: action.value }
         default:
             return state
     }
 }
 
 //actions
-const setIntialized = (value: boolean) => ({type: "app/SET-INTIALIZED", value} as const)
-
-//types
-type actionsType =
-    ReturnType<typeof setIntialized>
+const setInitialized = (value: boolean) => ({ type: "app/SET-INITIALIZED", value } as const);
 
 //thunks
-
 export const initializeApp = () => (dispatch: ThunkDispatch<AppRootStateType, unknown, actionsType>) => {
-    let promise = dispatch(getAuth())
-    Promise.all([promise])
+    let promise = dispatch(getAuth());
+    Promise.all([ promise ])
         .then(() => {
-            dispatch(setIntialized(true));
+            dispatch(setInitialized(true));
         })
 }
 

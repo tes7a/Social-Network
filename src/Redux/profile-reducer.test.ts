@@ -1,4 +1,4 @@
-import profileReducer, { addPost, deletePost } from "./profile-reducer"
+import { addPost, deletePost, profileReducer } from './profile-reducer'; 
 
 const state = {
     profile: {
@@ -22,8 +22,8 @@ const state = {
         }
     },
     posts: [
-        {id: 1, likeCount: 15, message: "Hi, how are you?"},
-        {id: 2, likeCount: 20, message: "It's my first post"}
+        { id: 1, likeCount: 15, message: "Hi, how are you?" },
+        { id: 2, likeCount: 20, message: "It's my first post" }
     ],
     status: '',
 }

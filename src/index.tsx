@@ -4,15 +4,18 @@ import App from './App';
 import {AppRootStateType, store} from './Redux/redux-store'
 import {Provider} from 'react-redux';
 import {Store} from 'redux';
+import { BrowserRouter } from 'react-router-dom';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
 const renderTree = (state: Store<AppRootStateType, any>) => {
 
     root.render(
-        <Provider store={ state }>
+        <BrowserRouter>
+            <Provider store={ state }>
                 <App/>
-        </Provider>,
+            </Provider>
+        </BrowserRouter>
     );
 }
 
