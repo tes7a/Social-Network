@@ -1,13 +1,10 @@
 import React from 'react';
-import s from './users.module.css';
-import user from '../../assets/images/user.jpg';
-import { NavLink } from 'react-router-dom';
 import { UserType } from '../../api/api';
 import { Pagination } from './Pagination/Pagination';
 import { User } from './User';
 
 type UsersComponentType = {
-    totalUserCount: number,
+    totalItemsCount: number,
     pageSize: number,
     currentPage: number,
     users: UserType[],
@@ -24,7 +21,7 @@ export const Users: React.FC<UsersComponentType> = ({
     pageSize,
     setFollow,
     setUnFollow,
-    totalUserCount,
+    totalItemsCount,
     users,
 }) => {
     return <div>
@@ -32,7 +29,8 @@ export const Users: React.FC<UsersComponentType> = ({
             currentPage={currentPage}
             currentPageHandler={currentPageHandler}
             pageSize={pageSize}
-            totalUserCount={totalUserCount}
+            totalItemsCount={totalItemsCount}
+            portionSize={10}
          />
         {
             users.map(u =><User 

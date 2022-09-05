@@ -18,7 +18,7 @@ import {
 type MapStateToPropsType = {
     users: UserType[],
     pageSize: number,
-    totalUserCount: number,
+    totalItemsCount: number,
     currentPage: number,
     isFetching: boolean,
     followingInProgress: number[],
@@ -49,7 +49,7 @@ class UsersComponentContainer extends React.Component<UsersComponentContainerTyp
                    currentPage={ this.props.currentPage }
                    pageSize={ this.props.pageSize }
                    currentPageHandler={ this.currentPageHandler }
-                   totalUserCount={ this.props.totalUserCount }
+                   totalItemsCount={ this.props.totalItemsCount }
                    followingInProgress={ this.props.followingInProgress }
                    setFollow={ this.props.setFollow }
                    setUnFollow={ this.props.setUnFollow }
@@ -62,7 +62,7 @@ const mapStateToProps = (state: AppRootStateType): MapStateToPropsType => {
     return {
         users: getUsersSuperSelector(state),
         pageSize: getPageSizeState(state),
-        totalUserCount: getTotalCountState(state),
+        totalItemsCount: getTotalCountState(state),
         currentPage: getCurrentPageState(state),
         isFetching: getIsFetchingState(state),
         followingInProgress: getFollowingInProgressState(state),
