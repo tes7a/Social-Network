@@ -1,5 +1,5 @@
 import React from 'react';
-import { PostsType } from '../../../Redux/profile-reducer';
+import { PostsType } from '../../../bll/profile-reducer';
 import s from './MyPosts.module.css';
 import { MyPostsReduxForm } from './PostForm/PostForm';
 import Posts from './Posts/Posts';

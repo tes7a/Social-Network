@@ -1,14 +1,14 @@
 import React from 'react';
 import { Profile } from './Profile';
 import { connect } from 'react-redux';
-import { AppRootStateType } from '../../Redux/redux-store';
+import { AppRootStateType } from '../../bll/redux-store';
 import {
     getStatus,
     getUserProfile,
     ProfileType, updateStatus,
-} from '../../Redux/profile-reducer';
+} from '../../bll/profile-reducer';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
-import { WithAuthRedirect } from '../../hoc/withAuthRedirect'
+import { WithAuthRedirect } from '../../hoc/WithAuthRedirect'
 import { compose } from 'redux';
 
 type ProfileContainerType = {

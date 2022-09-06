@@ -1,20 +1,22 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import './App.css';
 import NavBar from './components/Nav/NavBar';
-import { BrowserRouter, Route} from 'react-router-dom';
+import {  Route } from 'react-router-dom';
 import { News } from './components/News/News';
 import { Music } from './components/Music/Music';
 import { Settings } from './components/Settings/Settings';
-import DialogsContainer from './components/Dialogs/DialogsContainer';
 import UsersContainer from './components/Users/UsersContainer';
-import ProfileConnectContainer from './components/Profile/ProfileContainer';
 import  HeaderContainer  from './components/Header/HeaderContainer';
 import { LoginContainer } from './components/Login/Login';
-import { AppRootStateType } from './Redux/redux-store';
+import { AppRootStateType } from './bll/redux-store';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import {initializeApp} from '../src/Redux/app-reducer'
+import {initializeApp} from './bll/app-reducer'
 import { Preloader } from './components/common/Preloader/Preloader';
+import { SuspenseHoc } from './hoc/SuspenseHoc';
+
+const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
+const ProfileConnectContainer = React.lazy(() => import('./components/Profile/ProfileContainer'));
 
 class App extends React.Component<HeaderContainerProps> {
     componentDidMount() {
@@ -31,8 +33,8 @@ class App extends React.Component<HeaderContainerProps> {
                     <HeaderContainer/>
                     <NavBar/>
                     <div className='app-wrapper-content'>
-                        <Route exact path='/dialog' render={ () => <DialogsContainer/> }/>
-                        <Route path='/profile/:userId?' render={ () => <ProfileConnectContainer/> }/>
+                        <Route exact path='/dialog' render={SuspenseHoc(DialogsContainer) } />
+                        <Route path='/profile/:userId?' render={SuspenseHoc(ProfileConnectContainer)}/>
                         <Route path='/news' render={ () => <News/> }/>
                         <Route path='/music' render={ () => <Music/> }/>
                         <Route path='/settings' render={ () => <Settings/> }/>

@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { AppRootStateType, store } from './Redux/redux-store'
+import { AppRootStateType, store } from './bll/redux-store'
 import { Store } from 'redux';
 import { RenderApp } from './RenderApp';
 

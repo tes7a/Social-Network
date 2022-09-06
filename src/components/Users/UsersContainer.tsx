@@ -1,19 +1,20 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { AppRootStateType } from '../../Redux/redux-store';
+import { AppRootStateType } from '../../bll/redux-store';
 import {
     getUsers,
     setCurrentPage, setFollow, setUnFollow,
-} from '../../Redux/users-reducer';
+} from '../../bll/users-reducer';
 import { Users } from './Users';
 import { Preloader } from '../common/Preloader/Preloader';
 import { UserType } from '../../api/api';
 import { compose } from 'redux';
-import { WithAuthRedirect } from '../../hoc/withAuthRedirect';
+import { WithAuthRedirect } from '../../hoc/WithAuthRedirect';
 import {
     getCurrentPageState, getFollowingInProgressState, getIsFetchingState, getPageSizeState,
     getTotalCountState, getUsersSuperSelector
-} from '../../Redux/users-selectors';
+} from '../../bll/users-selectors';
+
 
 type MapStateToPropsType = {
     users: UserType[],

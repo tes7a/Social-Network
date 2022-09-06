@@ -3,7 +3,7 @@ import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { Store } from 'redux';
 import App from './App';
-import { AppRootStateType } from './Redux/redux-store';
+import { AppRootStateType } from './bll/redux-store';
 
 type RenderAppType = {
     state: Store<AppRootStateType, any>,

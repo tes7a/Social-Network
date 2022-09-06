@@ -2,7 +2,7 @@ import React from 'react';
 import classes from './Dialogs.module.css';
 import { DialogItem } from './DialogItem/DialogItem';
 import { MessagesItem } from './MessagesItem/MessagesItem';
-import { DialogsPageType } from '../../Redux/dialogs-reducer';
+import { DialogsPageType } from '../../bll/dialogs-reducer';
 import { DialogReduxForm } from './MassageForm/MessageFrom';
 
 type DialogType = {
