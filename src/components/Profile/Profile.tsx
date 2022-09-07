@@ -7,11 +7,19 @@ type ProfileComponentType = {
     profile: ProfileType,
     status: string,
     updateStatus: (status: string) => void,
+    isOwner: boolean,
+    savePhoto: (photo: File) => void,
 }
 
-export const Profile: React.FC<ProfileComponentType> = ({profile, status, updateStatus}) => {
+export const Profile: React.FC<ProfileComponentType> = ({ profile, status, updateStatus, isOwner, savePhoto }) => {
         return  <div>
-            <ProfileInfo profile={ profile } status={ status } updateStatus={ updateStatus }/>
+            <ProfileInfo 
+                isOwner={ isOwner } 
+                profile={ profile } 
+                status={ status } 
+                updateStatus={ updateStatus }
+                savePhoto={ savePhoto }
+                />
             <MyPostsContainer/>
         </div>;
 

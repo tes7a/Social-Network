@@ -40,6 +40,7 @@ export type ActionTypesProfileReducer =
     | ReturnType<typeof setStatus>
     | ReturnType<typeof deletePost>
     | ReturnType<typeof setUserProfile>
+    | ReturnType<typeof savePhotoToServer>
 
 const initialState: ProfilePageType = {
     profile: {
@@ -85,19 +86,27 @@ export const profileReducer = (state = initialState, action: ActionTypesProfileR
             return { ...state, status: action.status }
         case "profile/DELETE-POST":
             return { ...state, posts: state.posts.filter(p => p.id !== action.id) }
+        case "SAVE-PHOTO-TO-SERVER" : {
+            return { ...state, profile: {
+                ...state.profile,
+                photos:  action.photo
+            } }
+        }   
         default:
             return state
     }
 }
 
 //actions 
-export const addPost = (postMessage: string) => ({ type: "ADD-POST", postMessage } as const);
+export const addPost = (postMessage: string) => ({ type: 'ADD-POST', postMessage } as const);
 
 export const setStatus = (status: string) => ({ type: 'profile/GET-STATUS', status } as const);
 
-export const setUserProfile = (profile: ProfileType) => ({ type: "SET-USER-PROFILE", profile } as const);
+export const setUserProfile = (profile: ProfileType) => ({ type: 'SET-USER-PROFILE', profile } as const);
 
-export const deletePost = (id: number) => ({ type: 'profile/DELETE-POST', id } as const)
+export const deletePost = (id: number) => ({ type: 'profile/DELETE-POST', id } as const);
+
+export const savePhotoToServer = (photo: { small: string, large: string,}) => ({ type: 'SAVE-PHOTO-TO-SERVER', photo} as const);
 
 //thunks
 export const getUserProfile = (userId: number) => async (dispatch: Dispatch) => {
@@ -113,4 +122,14 @@ export const updateStatus = (status: string) => async (dispatch: Dispatch) => {
     if (res.data.resultCode === 0) {
         dispatch(setStatus(status))
     }
+}
+
+export const savePhoto = (photo: File) => async (dispatch: Dispatch) => {
+    debugger;
+    const res = await profileAPI.savePhoto(photo);
+
+    if (res.data.resultCode === 0) {
+        dispatch(savePhotoToServer(res.data.data))
+    }
+            
 }
