@@ -1,4 +1,5 @@
 import React from 'react';
+import s from './Contact.module.css';
 
 type ContactType = {
     contactTitle: string,
@@ -6,5 +7,5 @@ type ContactType = {
 }
 
 export const Contact: React.FC<ContactType> = ({ contactTitle, contactValue }) => {
-    return <div><b>{ contactTitle }</b>: { contactValue }</div>
+    return <div className={ s.contact }><b>{ contactTitle }</b>: { contactValue }</div>
 }
