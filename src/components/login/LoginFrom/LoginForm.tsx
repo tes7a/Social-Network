@@ -1,5 +1,6 @@
-import { Field, InjectedFormProps, reduxForm } from 'redux-form';
+import { InjectedFormProps, reduxForm } from 'redux-form';
 import { requiredField } from '../../../utils/validators/validators';
+import { CreateFiled } from '../../common/FormsControl/CreateField';
 import { Input } from '../../common/FormsControl/Input';
 import s from './LoginForm.module.css';
 
@@ -12,15 +13,9 @@ type FormData = {
 export const LoginForm: React.FC<InjectedFormProps<FormData>> = (props) => {
     return (
             <form onSubmit={ props.handleSubmit }>
-                <div>
-                    <Field placeholder={ "Email" } name={ "email" } component={ Input} validate={ [ requiredField ] }/>
-                </div>
-                <div>
-                    <Field placeholder={ "Password" } name={ "password" } type={ "password" } component={ Input } validate={ [ requiredField ] }/>
-                </div>
-                <div>
-                    <Field type={ "checkbox" } name={ "rememberMe" } component={ Input }/> remember me
-                </div>
+                 { CreateFiled("Email", "email", [ requiredField ], Input) }
+                 { CreateFiled("Password", "password", [ requiredField ], Input, { type: "password" }) }
+                 { CreateFiled(null, "rememberMe", [], Input, { type: "checkbox" }, "remember me") }
                 {props.error && <div className={ s.error }>
                     { props.error }
                 </div>

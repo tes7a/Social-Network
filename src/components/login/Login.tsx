@@ -25,8 +25,6 @@ type MapStateToPropsType = {
 
 export const Login: React.FC<LoginProps> = ({ authLogin, isAuth }) => {
     const onSubmit = (formData: any) => {
-        console.log(formData);
-        
         authLogin(formData.password,formData.email,formData.rememberMe);
     }
 
@@ -46,7 +44,7 @@ const mapStateToProps = (state: AppRootStateType): MapStateToPropsType => ({
     id: state.auth.id,
     email: state.auth.email,
     isAuth: state.auth.isAuth,
-    login: state.auth.login
+    login: state.auth.login,
 });
 
 export const LoginContainer = connect(mapStateToProps, { authLogin })(Login);

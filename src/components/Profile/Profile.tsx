@@ -1,10 +1,10 @@
 import React from 'react';
 import { ProfileInfo } from './MyPosts/ProfileInfo/ProfileInfo';
 import { MyPostsContainer } from './MyPosts/MyPostsContainer';
-import { ProfileType } from '../../bll/profile-reducer';
+import { ProfileAPIType } from '../../api/api';
 
 type ProfileComponentType = {
-    profile: ProfileType,
+    profile: ProfileAPIType,
     status: string,
     updateStatus: (status: string) => void,
     isOwner: boolean,

@@ -1,10 +1,10 @@
 import { Dispatch } from 'redux';
-import { profileAPI } from '../api/api';
+import { profileAPI, ProfileAPIType, ProfileDataType } from '../api/api';
 
 //types
 export type ProfilePageType = {
     posts: PostsType[],
-    profile: ProfileType,
+    profile: ProfileAPIType,
     status: string,
 }
 
@@ -14,33 +14,13 @@ export type PostsType = {
     message: string,
 }
 
-export type ProfileType = {
-    userId: number,
-    lookingForAJob: boolean,
-    lookingForAJobDescription: string,
-    fullName: string,
-    contacts: {
-        github: string,
-        vk: string,
-        facebook: string,
-        instagram: string,
-        twitter: string,
-        website: string,
-        youtube: string,
-        mainLink: string,
-    }
-    photos: {
-        small: string,
-        large: string,
-    },
-}
-
 export type ActionTypesProfileReducer =
     | ReturnType<typeof addPost>
     | ReturnType<typeof setStatus>
     | ReturnType<typeof deletePost>
     | ReturnType<typeof setUserProfile>
     | ReturnType<typeof savePhotoToServer>
+    | ReturnType<typeof saveProfileDataToServer>
 
 const initialState: ProfilePageType = {
     profile: {
@@ -73,40 +53,49 @@ const initialState: ProfilePageType = {
 
 export const profileReducer = (state = initialState, action: ActionTypesProfileReducer): ProfilePageType => {
     switch (action.type) {
-        case "ADD-POST": {
+        case "profile/ADD-POST": {
             return {
                 ...state,
                 posts:
                     [...state.posts, { id: new Date().getTime(), message: action.postMessage, likeCount: 0 }]
             };
         }
-        case "SET-USER-PROFILE":
+        case "profile/SET-USER-PROFILE":
             return { ...state, profile: action.profile }
         case "profile/GET-STATUS":
             return { ...state, status: action.status }
         case "profile/DELETE-POST":
             return { ...state, posts: state.posts.filter(p => p.id !== action.id) }
-        case "SAVE-PHOTO-TO-SERVER" : {
+        case "profile/SAVE-PHOTO-TO-SERVER": {
             return { ...state, profile: {
                 ...state.profile,
                 photos:  action.photo
             } }
-        }   
+        }
+        case "profile/SAVE-PROFILE-DATA": {
+            return {
+                ...state, 
+            }
+        }
         default:
             return state
     }
 }
 
 //actions 
-export const addPost = (postMessage: string) => ({ type: 'ADD-POST', postMessage } as const);
+export const addPost = (postMessage: string) => ({ type: 'profile/ADD-POST', postMessage } as const);
 
 export const setStatus = (status: string) => ({ type: 'profile/GET-STATUS', status } as const);
 
-export const setUserProfile = (profile: ProfileType) => ({ type: 'SET-USER-PROFILE', profile } as const);
+export const setUserProfile = (profile: ProfileAPIType) => ({ type: 'profile/SET-USER-PROFILE', profile } as const);
 
 export const deletePost = (id: number) => ({ type: 'profile/DELETE-POST', id } as const);
 
-export const savePhotoToServer = (photo: { small: string, large: string,}) => ({ type: 'SAVE-PHOTO-TO-SERVER', photo} as const);
+export const savePhotoToServer = (photo: { small: string, large: string,}) => 
+    ({ type: 'profile/SAVE-PHOTO-TO-SERVER', photo} as const);
+
+export const saveProfileDataToServer = (profileData: ProfileDataType) => 
+    ({type: 'profile/SAVE-PROFILE-DATA', profileData } as const);
 
 //thunks
 export const getUserProfile = (userId: number) => async (dispatch: Dispatch) => {
@@ -125,11 +114,17 @@ export const updateStatus = (status: string) => async (dispatch: Dispatch) => {
 }
 
 export const savePhoto = (photo: File) => async (dispatch: Dispatch) => {
-    debugger;
     const res = await profileAPI.savePhoto(photo);
 
     if (res.data.resultCode === 0) {
         dispatch(savePhotoToServer(res.data.data))
+    }    
+}
+
+export const saveProfile = (profileData: ProfileDataType) => async (dispatch: Dispatch) => {
+    const res = await profileAPI.profileData(profileData);
+
+    if (res.data.resultCode === 0) {
+        dispatch(saveProfileDataToServer(res.data.data))
     }
-            
 }

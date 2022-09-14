@@ -20,7 +20,7 @@ export type UserType = {
 
 //profileAPI type 
 
-type ProfileAPIType = {
+export type ProfileAPIType = {
     userId: number,
     lookingForAJob: boolean,
     lookingForAJobDescription: string,
@@ -39,6 +39,23 @@ type ProfileAPIType = {
         small: string,
         large: string,
     },
+}
+
+export type ProfileDataType = {
+  userId: number,
+    lookingForAJob: boolean,
+    lookingForAJobDescription: string,
+    fullName: string,
+    contacts: {
+        github: string,
+        vk: string,
+        facebook: string,
+        instagram: string,
+        twitter: string,
+        website: string,
+        youtube: string,
+        mainLink: string,
+    }
 }
 
 //universal type
@@ -74,6 +91,9 @@ export const userAPI = {
 }
 
 export const profileAPI = {
+    profileData(data: ProfileDataType) {
+        return instance.put<ResponseType<ProfileDataType>>(`profile`, { data })
+    },
     profile(userId: number) {
         return instance.get<ProfileAPIType>(`profile/${ userId }`)
     },

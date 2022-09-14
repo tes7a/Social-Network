@@ -27,7 +27,7 @@ export const FromControl: React.FC<FormsControls> = (
             <div>
                 { children }
             </div>
-            {hasError && <span>{ meta.error }</span>}
+            { hasError && <span>{ meta.error }</span> }
         </div>
     )
 }
