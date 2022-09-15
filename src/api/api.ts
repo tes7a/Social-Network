@@ -24,6 +24,7 @@ export type ProfileAPIType = {
     userId: number,
     lookingForAJob: boolean,
     lookingForAJobDescription: string,
+    aboutMe: string,
     fullName: string,
     contacts: {
         github: string,
@@ -44,6 +45,7 @@ export type ProfileAPIType = {
 export type ProfileDataType = {
   userId: number,
     lookingForAJob: boolean,
+    aboutMe: string,
     lookingForAJobDescription: string,
     fullName: string,
     contacts: {
@@ -92,7 +94,7 @@ export const userAPI = {
 
 export const profileAPI = {
     profileData(data: ProfileDataType) {
-        return instance.put<ResponseType<ProfileDataType>>(`profile`, { data })
+        return instance.put<ResponseType<ProfileDataType>>(`profile`, data )
     },
     profile(userId: number) {
         return instance.get<ProfileAPIType>(`profile/${ userId }`)

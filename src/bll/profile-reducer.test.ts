@@ -5,6 +5,7 @@ const state = {
         userId: 2,
         lookingForAJob: false,
         lookingForAJobDescription: '',
+        aboutMe:'',
         fullName: '',
         contacts: {
             github: '',

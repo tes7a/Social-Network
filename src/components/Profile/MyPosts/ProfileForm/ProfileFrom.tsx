@@ -4,12 +4,21 @@ import { ProfileAPIType } from '../../../../api/api';
 import { CreateFiled } from '../../../common/FormsControl/CreateField';
 import { Input } from '../../../common/FormsControl/Input';
 import { TextArea } from '../../../common/FormsControl/TextArea';
+import  s from './ProfileForm.module.css';
 
 type ProfileFormType = {
     profile: ProfileAPIType,
 }
 
-export const ProfileForm: React.FC<InjectedFormProps<ProfileFormType>> = (props) => {
+type FormType = {
+  fullName: string,
+  lookingForAJob: boolean,
+  aboutMe: string,
+  lookingForAJobDescription: string,
+}
+
+export const ProfileForm: React.FC<InjectedFormProps<FormType, ProfileFormType> & ProfileFormType> = (props) => {
+  debugger;
     return(
         <form onSubmit={ props.handleSubmit }>
            <div>
@@ -22,23 +31,25 @@ export const ProfileForm: React.FC<InjectedFormProps<ProfileFormType>> = (props)
            <b>Looking for a job:</b>
            { CreateFiled("", "lookingForAJob", [], Input, {type: "checkbox"}) }
          </div>
+         <div>
+           <b>About Me:</b>
+           { CreateFiled("About Me", "aboutMe", [], TextArea) }
+         </div>
            <div>
              <b>My professional skills:</b>  { CreateFiled("My professional skills", "lookingForAJobDescription", [], TextArea) }
            </div>
-         {/* <div>
-           <b>Contacts</b>:{ " " }
-            {Object.keys(profile.contacts).map((key) => {
+         <div>
+           <b>Contacts</b>:
+            { Object.keys(props.profile.contacts).map((key) => {
              return (
-               <Contact
-                 key={ key }
-                 contactTitle={ key }
-                 contactValue={ profile.contacts[key as LinksType] }
-               />
+              <div key={ key }>
+                <b>{ key } : { CreateFiled(key, "contacts" + key, [], Input) }</b>
+              </div>
              );
            })}
-         </div> */}
+         </div>
        </form>
     )
 }
 
-export const ReduxFormProfile = reduxForm<ProfileFormType>({form: "profile-form"})(ProfileForm)
+export const ReduxFormProfile = reduxForm<FormType, ProfileFormType>({ form: "profile-form" })(ProfileForm);

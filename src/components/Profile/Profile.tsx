@@ -1,7 +1,7 @@
 import React from 'react';
 import { ProfileInfo } from './MyPosts/ProfileInfo/ProfileInfo';
 import { MyPostsContainer } from './MyPosts/MyPostsContainer';
-import { ProfileAPIType } from '../../api/api';
+import { ProfileAPIType, ProfileDataType } from '../../api/api';
 
 type ProfileComponentType = {
     profile: ProfileAPIType,
@@ -9,9 +9,10 @@ type ProfileComponentType = {
     updateStatus: (status: string) => void,
     isOwner: boolean,
     savePhoto: (photo: File) => void,
+    saveProfile: (profile: ProfileDataType) => void,
 }
 
-export const Profile: React.FC<ProfileComponentType> = ({ profile, status, updateStatus, isOwner, savePhoto }) => {
+export const Profile: React.FC<ProfileComponentType> = ({ profile, status, updateStatus, isOwner, savePhoto, saveProfile }) => {
         return  <div>
             <ProfileInfo 
                 isOwner={ isOwner } 
@@ -19,6 +20,7 @@ export const Profile: React.FC<ProfileComponentType> = ({ profile, status, updat
                 status={ status } 
                 updateStatus={ updateStatus }
                 savePhoto={ savePhoto }
+                saveProfile={ saveProfile }
                 />
             <MyPostsContainer/>
         </div>;

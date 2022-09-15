@@ -25,6 +25,10 @@ export const ProfileData: React.FC<ProfileDataType> = ({ profile, isOwner, onEdi
         <b>Looking for a job: </b>
         { profile.lookingForAJob ? "yes" : "no" }
       </div>
+      <div>
+           <b>About Me:</b>
+           { profile.aboutMe }
+         </div>
       { profile.lookingForAJob && (
         <div>
           <b>My professional skills</b>: { profile.lookingForAJobDescription }
@@ -33,7 +37,7 @@ export const ProfileData: React.FC<ProfileDataType> = ({ profile, isOwner, onEdi
 
       <div>
         <b>Contacts</b>:{ " " }
-         {Object.keys(profile.contacts).map((key) => {
+         { Object.keys(profile.contacts).map((key) => {
           return (
             <Contact
               key={ key }

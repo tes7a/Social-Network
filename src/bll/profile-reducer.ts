@@ -24,10 +24,11 @@ export type ActionTypesProfileReducer =
 
 const initialState: ProfilePageType = {
     profile: {
-        userId: 2,
+        userId: 20643,
         lookingForAJob: false,
         lookingForAJobDescription: '',
         fullName: '',
+        aboutMe: '',
         contacts: {
             github: '',
             facebook: '',
@@ -125,6 +126,6 @@ export const saveProfile = (profileData: ProfileDataType) => async (dispatch: Di
     const res = await profileAPI.profileData(profileData);
 
     if (res.data.resultCode === 0) {
-        dispatch(saveProfileDataToServer(res.data.data))
+        //dispatch(saveProfileDataToServer(res.data.data))
     }
 }
