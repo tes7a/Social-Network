@@ -1,4 +1,5 @@
 import { Dispatch } from 'redux';
+import { stopSubmit } from 'redux-form';
 import { profileAPI, ProfileAPIType, ProfileDataType } from '../api/api';
 
 //types
@@ -20,7 +21,6 @@ export type ActionTypesProfileReducer =
     | ReturnType<typeof deletePost>
     | ReturnType<typeof setUserProfile>
     | ReturnType<typeof savePhotoToServer>
-    | ReturnType<typeof saveProfileDataToServer>
 
 const initialState: ProfilePageType = {
     profile: {
@@ -73,11 +73,6 @@ export const profileReducer = (state = initialState, action: ActionTypesProfileR
                 photos:  action.photo
             } }
         }
-        case "profile/SAVE-PROFILE-DATA": {
-            return {
-                ...state, 
-            }
-        }
         default:
             return state
     }
@@ -94,9 +89,6 @@ export const deletePost = (id: number) => ({ type: 'profile/DELETE-POST', id } a
 
 export const savePhotoToServer = (photo: { small: string, large: string,}) => 
     ({ type: 'profile/SAVE-PHOTO-TO-SERVER', photo} as const);
-
-export const saveProfileDataToServer = (profileData: ProfileDataType) => 
-    ({type: 'profile/SAVE-PROFILE-DATA', profileData } as const);
 
 //thunks
 export const getUserProfile = (userId: number) => async (dispatch: Dispatch) => {
@@ -122,10 +114,14 @@ export const savePhoto = (photo: File) => async (dispatch: Dispatch) => {
     }    
 }
 
-export const saveProfile = (profileData: ProfileDataType) => async (dispatch: Dispatch) => {
-    const res = await profileAPI.profileData(profileData);
+export const saveProfile = (profileData: ProfileDataType) => 
+    async (dispatch: Dispatch) => {
+        const res = await profileAPI.profileData(profileData);
 
-    if (res.data.resultCode === 0) {
-        //dispatch(saveProfileDataToServer(res.data.data))
-    }
+        if (res.data.resultCode === 0) {
+            
+        } else {
+            dispatch(stopSubmit("profile-form", { _error: res.data.messages[0] }))
+            return Promise.reject();
+        }
 }

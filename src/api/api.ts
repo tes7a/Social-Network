@@ -43,7 +43,7 @@ export type ProfileAPIType = {
 }
 
 export type ProfileDataType = {
-  userId: number,
+    userId: number,
     lookingForAJob: boolean,
     aboutMe: string,
     lookingForAJobDescription: string,

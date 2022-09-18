@@ -27,10 +27,11 @@ export const ProfileInfo: React.FC<ProfileInfoType> = ({ profile, status, update
     }
 
     const onSubmit = (formData: any) => {
-       saveProfile( {...formData, userId: 20643 } );
-
-       console.log(formData);
-       
+        //@ts-ignore
+        saveProfile( {...formData, userId: 20643, } ).then(() => {
+                setEditMode(false);
+            })
+        
     }
 
     if(!profile){

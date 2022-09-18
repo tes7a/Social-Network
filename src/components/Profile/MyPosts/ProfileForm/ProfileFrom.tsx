@@ -1,13 +1,13 @@
 import React from 'react';
 import { InjectedFormProps, reduxForm } from 'redux-form';
-import { ProfileAPIType } from '../../../../api/api';
+import { ProfileDataType } from '../../../../api/api';
 import { CreateFiled } from '../../../common/FormsControl/CreateField';
 import { Input } from '../../../common/FormsControl/Input';
 import { TextArea } from '../../../common/FormsControl/TextArea';
 import  s from './ProfileForm.module.css';
 
 type ProfileFormType = {
-    profile: ProfileAPIType,
+    profile: ProfileDataType,
 }
 
 type FormType = {
@@ -18,12 +18,15 @@ type FormType = {
 }
 
 export const ProfileForm: React.FC<InjectedFormProps<FormType, ProfileFormType> & ProfileFormType> = (props) => {
-  debugger;
     return(
         <form onSubmit={ props.handleSubmit }>
-           <div>
+          <div>
              <button>Save</button>
-           </div>
+          </div>
+          {props.error && <div className={ s.error }>
+                    { props.error }
+                </div>
+              }
          <div>
            <b>Full name:</b> { CreateFiled("Full Name", "fullName", [], Input) }
          </div>
@@ -43,7 +46,7 @@ export const ProfileForm: React.FC<InjectedFormProps<FormType, ProfileFormType> 
             { Object.keys(props.profile.contacts).map((key) => {
              return (
               <div key={ key }>
-                <b>{ key } : { CreateFiled(key, "contacts" + key, [], Input) }</b>
+                <b>{ key } : { CreateFiled(key, "contacts." + key , [], Input) }</b>
               </div>
              );
            })}

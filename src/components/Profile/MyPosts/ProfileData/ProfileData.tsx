@@ -36,7 +36,7 @@ export const ProfileData: React.FC<ProfileDataType> = ({ profile, isOwner, onEdi
       )}
 
       <div>
-        <b>Contacts</b>:{ " " }
+        <b>Contacts</b>:
          { Object.keys(profile.contacts).map((key) => {
           return (
             <Contact
