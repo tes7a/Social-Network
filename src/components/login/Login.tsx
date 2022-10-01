@@ -10,10 +10,13 @@ type LoginProps = {
     email: string,
     isAuth: boolean,
     login: string,
+    captcha: string,
     authLogin: (
         password: string, 
         email: string, 
-        rememberMe: boolean) => void,
+        rememberMe: boolean,
+        captcha: string,
+        ) => void,
 }
 
 type MapStateToPropsType = {
@@ -21,11 +24,12 @@ type MapStateToPropsType = {
     email: string,
     isAuth: boolean,
     login: string,
+    captcha: string,
 }
 
-export const Login: React.FC<LoginProps> = ({ authLogin, isAuth }) => {
+export const Login: React.FC<LoginProps> = ({ authLogin, isAuth, captcha }) => {
     const onSubmit = (formData: any) => {
-        authLogin(formData.password,formData.email,formData.rememberMe);
+        authLogin(formData.password, formData.email, formData.rememberMe, formData.captcha);
     }
 
     if(isAuth){
@@ -35,7 +39,7 @@ export const Login: React.FC<LoginProps> = ({ authLogin, isAuth }) => {
     return (
         <div>
             <h1>Login</h1>
-            <LoginReduxForm onSubmit={  onSubmit }/>
+            <LoginReduxForm onSubmit={  onSubmit } captcha={ captcha }/>
         </div>
     )
 }
@@ -45,6 +49,7 @@ const mapStateToProps = (state: AppRootStateType): MapStateToPropsType => ({
     email: state.auth.email,
     isAuth: state.auth.isAuth,
     login: state.auth.login,
+    captcha: state.auth.captcha,
 });
 
 export const LoginContainer = connect(mapStateToProps, { authLogin })(Login);
