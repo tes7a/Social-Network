@@ -20,8 +20,19 @@ const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsCo
 const ProfileConnectContainer = React.lazy(() => import('./components/Profile/ProfileContainer'));
 
 class App extends React.Component<HeaderContainerProps> {
+    catchAllUnhandledErrors = () => {
+        //reason and promise
+        //here need logic for initialized error 
+        alert('Error');
+    }
+
     componentDidMount() {
         this.props.initializeApp();
+        window.addEventListener('unhandledrejection', this.catchAllUnhandledErrors);
+    }
+
+    componentWillUnmount(): void {
+        window.removeEventListener('unhandledrejection', this.catchAllUnhandledErrors);
     }
 
     render() {
